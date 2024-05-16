@@ -1,0 +1,24 @@
+
+.box-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.box-item {
+    position: relative;
+    margin: 10px;
+    padding: 10px;
+
+    /* annoying ass phone users */
+    max-width: min(500px, 90%);
+    max-height: min(300px, 90%);
+    overflow-y: scroll;
+
+    text-align: center;
+    text-wrap: wrap;
+
+    border-radius: 5px;
+    background-color: var(--bg2);
+}
+

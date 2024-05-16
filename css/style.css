@@ -1,0 +1,143 @@
+* { 
+    font-family: Iosevka, monospace; 
+}
+
+:root {
+    /* oxocarbon ftw */
+    --bg: #161616;
+    --bg2: #262626;
+    --bg3: #393939;
+    --fg: #dde1e6;
+    --acc: #ff7eb6;
+    --blue: #78a9ff;
+}
+
+body {
+    background-color: var(--fg);
+    background-image: url("../assets/tile.png");
+    height: 100%;
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+p, li {
+    font-size: 18px;
+    /* margin: 20px; */
+}
+
+.button {
+    all: unset;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+
+    background-color: var(--bg2);
+    text-align: center;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+a {
+    color: var(--blue);
+}
+
+article {
+    position: relative;
+    flex-grow: 1; 
+
+    overflow-y: scroll;
+
+    background-color: var(--bg);
+    color: var(--fg);
+    border-radius: 5px;
+    border: 2px solid var(--bg3);
+
+    margin: 10px;
+    padding: 10px;
+}
+
+.workspace {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: 5px;
+    margin-left: 55px;
+
+    display: flex;
+    flex-wrap: wrap-reverse;
+    overflow-y: scroll;
+}
+
+.workspace > div{
+    display: flex; 
+    flex-direction: column; 
+    flex-grow: 1; 
+    max-height: 100%;
+}
+
+.bar {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    height: 100%;
+
+    background-color: var(--bg);
+    color: var(--acc);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.subbar {
+    display: flex;
+    flex-direction: column;
+}
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+    align-items: center;
+}
+
+.vcentered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes slideout {
+    0% {right: -400px};
+    100% {right: 10px};
+}
+
+.popup {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: min(300px, 50%);
+
+    transition: right 500ms;
+
+    animation-name: slideout;
+    animation-duration: 500ms;
+    animation-direction: normal;
+
+    background-color: var(--bg);
+    color: var(--fg);
+    border: 2px solid var(--bg3);
+    border-radius: 5px;
+
+    margin: 10px;
+    padding: 5px;
+}
+
+.popup.gone {
+    right: -400px;
+}
