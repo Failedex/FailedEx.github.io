@@ -197,6 +197,14 @@ class ProjectBox extends HTMLElement {
 
 customElements.define("project-item", ProjectBox);
 
+function childSet (div, attribute, value) {
+    div.childNodes.forEach(element => {
+        if (element.style){
+            element.style[attribute] = value;
+        }
+    });
+}
+
 var zcount = 1;
 
 function makefloat (div, position) {
@@ -207,6 +215,7 @@ function makefloat (div, position) {
     div.style.height = (position.height-24).toString()+"px";
     div.style.width = (position.width-24).toString()+"px";
     div.style.userSelect = "none";
+    childSet(div, "pointer-events", "none");
     div.style.zIndex = 1;
 
     if (div.getAttribute('listener') === 'true') 
@@ -242,14 +251,17 @@ function makefloat (div, position) {
         zcount++;
     }, true);
 
-    div.addEventListener('mouseup', () => {
+    const stopHold = () => {
         if (div.style.position !== "fixed") 
             return;
 
         held = false;
         rheld = false;
         div.setAttribute("held", "false");
-    }, true);
+    }
+
+    div.addEventListener('mouseup', stopHold, true);
+    div.addEventListener('mouseout', stopHold, true);
 
     div.addEventListener('mousemove', (e) => {
         if (div.style.position !== "fixed") 
@@ -274,6 +286,7 @@ function unmakefloat (div) {
     div.style.height = "";
     div.style.width = "";
     div.style.userSelect = "";
+    childSet(div, "pointer-events", "");
     zcount = 1;
 
 }
