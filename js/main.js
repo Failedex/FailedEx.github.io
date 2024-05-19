@@ -39,10 +39,10 @@ class Sidebar extends HTMLElement {
         const skull = document.createElement("button");
         skull.className = "button";
         skull.onclick = () => {
-            let attentionspan = document.getElementById("popup");
+            let attentionspan = document.getElementById("popupclip");
             if (!attentionspan) {
                 attentionspan = document.createElement("div");
-                attentionspan.id = "popup";
+                attentionspan.id = "popupclip";
                 attentionspan.className = "popup gone centered";
                 attentionspan.innerHTML = `
                 <h4>This website boring ahh hell</h4>
@@ -74,6 +74,31 @@ class Sidebar extends HTMLElement {
         floattext.innerText = "dock_to_left";
         floatwin.appendChild(floattext);
 
+        let count = 0;
+
+        const tilemsg = (head, p) => {
+            let msg = document.getElementById("popupnotify");
+            if (!msg) {
+                msg = document.createElement("div");
+                msg.id = "popupnotify";
+                msg.className = "popup gone centered";
+                msg.style.zIndex = 5;
+                document.body.appendChild(msg)
+            }
+            count++;
+            msg.innerHTML = `
+            <h4>${head}</h4>
+            <p>${p}</p>
+            `;
+            msg.className = "popup centered";
+            setTimeout(() => {
+                count--;
+                if (count <= 0) {
+                    msg.className = "popup gone centered";
+                }
+            }, 4000);
+        }
+
         floatwin.onclick = () => {
             const positionmap = [];
             for (const div of document.getElementsByTagName("article")) {
@@ -87,11 +112,14 @@ class Sidebar extends HTMLElement {
                     floattext.innerText = "select_window_2";
                     makefloat(div, positionmap[id]);
                     fallwin.style.display = "block";
+                    tilemsg("Floating mode!", "Left mouse button to move tiles, right mouse button to resize.")
+
                 } else {
                     document.body.setAttribute("oncontextmenu", "");
                     floattext.innerText = "dock_to_left";
                     unmakefloat(div);
                     fallwin.style.display = "none";
+                    tilemsg("Tiled mode!", "Nothing out of the ordinary.")
                 }
                 id++;
             }
