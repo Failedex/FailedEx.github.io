@@ -68,16 +68,9 @@ article {
     padding: 10px;
 }
 
-article > *:not(.box-list, .blogmedia, .blogmediasmall) {
-    margin: 25px 20%;
+.thin {
+    width: min(90%, 800px);
 }
-
-/* I hate mobile users */
-/* @media (max-width: 600px) { */
-/*     article > *:not(.box-list, .blogmedia, .blogmediasmall) { */
-/*         margin: 25px 0px; */
-/*     } */
-/* } */
 
 .workspace {
     position: fixed;
