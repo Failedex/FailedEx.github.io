@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Things you shouldn't do with eww</title>
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+        <script src="/js/main.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <side-bar></side-bar>
+        <div class="workspace">
+            <div>
+                <article>
+                    <h1>Doing things I shouldn't be doing on a widget system</h1>
+                    <h3>22/5/2024</h3>
+                    <hr>
+
+                    <p>If you want to skip to the showcase section, click <a href="#minishowcase">here</a>.</p>
+
+                    <h2>What is eww?</h2>
+                    <p><a href="https://github.com/elkowar/eww">Elkowar's wacky widget (eww)</a> is a widget system made in rust that allows you to implement custom widgets in any window manager or compositor. Configuration of eww is done in yuck, a markup language that resembles lisp, and scss/css.</p>
+                    <p>Before this widget system existed, desktop ricers only really had one viable option if they wanted to create widgets, that being <a href="https://awesomewm.org/">awesomewm</a>. Awesomewm is a powerful X11 window manager that has a widget system built in. The widget system is tied to the window manager, which makes it easy access and interact with information such as workspaces/tags and tiling mode. Eww however, uses GTK and is a standalone widget system (unlike awesome). This meant that it could run on any window manager or compositor, which is one of its main selling points.</p>
+                    <p>The creation of eww meant that there were now 2 options in terms of widget systems to use. This gave birth to a small war between Awesomewm users and Eww users, both sides arguing over which widget system is better. I will bring this up again later.</p>
+
+                    <h2>Why?</h2>
+                    <p>It was around Christmas 2023 when I finally felt satisfied with the work I've done everything with eww. Around this time was when I had settled on a decent looking desktop with some widgets that I was fairly happy with. Although I was happy with my desktop, I was a bit disappointed that there wasn't anymore I could do with eww. Was this all eww had to offer? Have I finally reached the peak of this weird lisp like language?</p> 
+                    <p>With no widget ideas to implement, it was clear that I was very bored during this period of time, because 2 days after Christmas I started developing games on eww.</p>
+                    <p>The first game project I made on eww was Osu Mania (4k), which was inspired by a post made by discord user abacus45:</p>
+
+                    <video class="blogmedia" controls>
+                        <source src="./media/2022-12-16_21-04-01.mp4" type="video/mp4">
+                        Osu mania on Awesomewm.
+                    </video>
+
+                    <p>Fueled by the war between Awesomewm and eww, I decided to push eww beyond what it was made to do and create Osu mania to prove that it was on par with what Awesomewm could do.</p>
+
+                    <img class="blogmedia" src="./media/maniasc.png" alt="Showcase moment">
+                    <img class="blogmediasmall" src="./media/mujtabe.png" alt="Live Mujtaba reaction:">
+
+                    <p>People were impressed/terrified of what I've done, so I started making more game with eww out of boredom.</p>
+
+                    <h2>Yuck is not a programming language</h2>
+                    <p>Yuck is a markup language. You cannot program with it. It has some simple expressions that allow for calculations and comparisons, but you cannot program a game in it. It is a markup language.</p>
+                    <p>What you could do however, is push the game code out of eww. Introducing <code>deflisten</code>, a feature that allows eww to run and listen to other scripts. By writing all the game logic in python, and printing out the game data in JSON for eww to display, we can avoid the dilemma of programming a game in a markup language. This is the key to using eww as a game engine, treating eww as a tool that simply displays things on the screen. Eww is very reactive, i.e., elements are instantly updated when variables are changed, so it does its job fairly well.</p>
+                    <p>For this part of the project, I typically just use python and a handful of threads. Most games will involve printing data to stdout at 60hz (surprisingly, eww can keep up with this.)</p>
+
+                    <img class="blogmediasmall" src="./media/60hz.png" alt="Live reaction to updating eww values at 60hz">
+
+                    <h2>How to place anything, anywhere</h2>
+                    <p>Hypothetically assume that you want to place a sprite with a specific width and height on a specific x and y coordinate in an eww box. How would you do it?</p>
+                    <p>One could use <code>transform</code>, which allows for users to move and rotate elements. Unfortunately, this is not at all easy to use and acts unexpectedly most of the time. The easiest way to move an object is to abuse the css <code>margin</code> property.</p>
+                    <p>This method was taken from <a href="https://github.com/T0kyoB0y/dotfiles/tree/bspwm">T0kyoB0y's dotfiles</a> where he made a workspace overview by using margins to set the boxes position and size.</p>
+
+                    <img class="blogmedia" src="https://github.com/T0kyoB0y/dotfiles/raw/bspwm/img/wall2.png" alt="Tokyoboy's workspace overview.">
+
+                    <p>By setting <code>margin-top</code> and <code>margin-left</code> to y and x respectively, you can move a box to your desired position. And by setting <code>margin-bottom</code> to <code>-(y+height)</code> and <code>margin-left</code> to <code>-(x+width)</code>, you can set the size of the box.</p>
+
+                    <h3>Wait, were those negative margin values?</h3>
+                    <p>Yes. Those were negative margin values.</p>
+                    <p>A game will often have multiple objects in the same box, which means you need to account for placing <strong>multiple</strong> boxes anywhere within a box. Eww likes to stack children of a box side by side within a box, which is slightly inconvenient in our case. By setting a negative margin for the bottom and right side, we trick eww into thinking our objects has a width and height of 0. This allows the next box to be placed relative to 0, 0.</p>
+
+                    <p>(Take a look at my beautifully drawn diagram)</p>
+                    <img class="blogmediasmall" src="./media/marginabuse.png" alt="Beautiful diagram of margin abuse.">
+
+                    <p>Remember to set <code>space-evenly</code>, <code>hexpand</code> and <code>vexpand</code> to false if you're attempting this.</p>
+
+                    <h2>What about rotating sprites?</h2>
+                    <p>Rotation fucked is so fucked up that I will leave it as a separate blog topic.</p>
+
+                    <h2>Getting input</h2>
+                    <p>Possibly the hardest part of these project is getting user input and passing it to the python script. There are many ways to accomplish this, but I usually just get python to read a text file 1/60 times a second and change the text file when the user interacts with certain elements in eww (eww is capable of running shell commands). If a more accurate input method is required, I would get the python script to spawn pygame window, whose sole purpose is to listen for user input. In the next section, which is a mini showcase, you will see different input methods I have used over this journey.</p>
+
+                    <h2 id="minishowcase">Projects</h2>
+                    
+                    <h3>Osu Mania</h3>
+                    <video class="blogmedia" controls>
+                        <source src="/experiments/media/maniaoneww.mp4" type="video/mp4">
+                        Osu mania on eww
+                    </video>
+                    <p>This project uses 4 sliders for each lane to display notes (it stacks more sliders if there are more notes). It also uses a <code>input</code> field, which writes to a text file every time the field is changed. The python file reads and parses the text file every 1/60 of a second. Unfortunately, using a text file does not support holding down keys, which is why there are no hold notes in this project.</p>
+
+                    <h3>Platformer</h3>
+                    <video class="blogmedia" controls>
+                        <source src="/experiments/media/silicube.mp4" type="video/mp4">
+                        Platformer + window manager.
+                    </video>
+                    <p>This project involves an eww window that covers the whole screen (in the background), the cube is then drawn somewhere on the transparent background. Using i3ipc, I was able to get the whereabouts and size of every window to use as platforms. The python script also spawns a pygame window, whose only responsibility is to capture input. Using pygame allows for users to hold down keys.</p>
+
+                    <h3>Bullet hell</h3>
+                    <video class="blogmedia" controls>
+                        <source src="./media/2huframe.mp4" type="video/mp4">
+                        I place everything, everywhere.
+                    </video>
+                    <p>One of my laggiest projects. It's actually shocking to see eww keep up with such a large quantity of entities. This uses the same input method as the previous project.</p>
+
+
+                    <h3>Flappy bird</h3>
+                    <video class="blogmedia" controls>
+                        <source src="/experiments/media/flappyberd.mp4" type="video/mp4">
+                        Flappy bird widget.
+                    </video>
+                    <p>The game screen is an <code>eventbox</code> that writes to a file every time it is clicked. The python file check for changes from the file every 1/60 seconds. The rest is fairly trivial.</p>
+
+                    <h3>Suika</h3>
+                    <video class="blogmedia" controls>
+                        <source src="/experiments/media/suika.mp4" type="video/mp4">
+                        Suika.
+                    </video>
+                    <p>Ball logic is significantly more painful to code than cube logic, but I won't elaborate on this. Each ball is a normal square <code>box</code> with a comically large <code>border-radius</code> value, which turns them into balls. There are 10 <code>eventbox</code> horizontally spread out among the screen, each one will write their index to a text file when it is being hovered above. When any of them detects a click, "drop" is written to the file, instructing the python script to drop the ball.</p>
+
+                    <p>I'll stop here before programmers around the world start throwing up at the sight of the methods I have used. If you want to see more of these projects, check out the <a href="/experiments/index.html">experiments</a> section.</p>
+
+                    <h2>End</h2>
+                    <p>The idea to create this blog came when Elkowar, the creator of eww, who suggested it after catching onto what I was doing.</p>
+                    <img class="blogmedia" src="./media/elkowarreaction.png" alt="Live Elkowar reaction.">
+                    <img class="blogmediasmall" src="./media/blogwhen.png" alt="Sorry it took 5 months">
+                    <p>Sorry this blog took over 5 months Elkowar.</p>
+
+                    <p>-Failed</p>
+                </article>
+            </div>
+        </div>
+    </body>
+</html>

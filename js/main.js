@@ -52,6 +52,8 @@ class Sidebar extends HTMLElement {
                 </video>
                 `;
                 document.body.appendChild(attentionspan);
+                // trigger render
+                attentionspan.scrollWidth;
             }
 
             if (attentionspan.classList.contains("gone")) {
@@ -81,20 +83,22 @@ class Sidebar extends HTMLElement {
             if (!msg) {
                 msg = document.createElement("div");
                 msg.id = "popupnotify";
-                msg.className = "popup gone centered";
+                msg.className = "popup notif gone centered";
                 msg.style.zIndex = 5;
                 document.body.appendChild(msg)
+                // trigger render
+                msg.scrollWidth;
             }
             count++;
             msg.innerHTML = `
             <h4>${head}</h4>
             <p>${p}</p>
             `;
-            msg.className = "popup centered";
+            msg.className = "popup notif centered";
             setTimeout(() => {
                 count--;
                 if (count <= 0) {
-                    msg.className = "popup gone centered";
+                    msg.className = "popup notif gone centered";
                 }
             }, 4000);
         }
@@ -297,11 +301,12 @@ function makefloat (div, position) {
 
         e.preventDefault();
         if (held) {
-            div.style.left = (e.clientX + offset[0]).toString()+'px';
-            div.style.top = (e.clientY + offset[1]).toString()+'px';
+            div.style.left = (e.clientX + offset[0]-10+window.scrollX).toString()+'px';
+            div.style.top = (e.clientY + offset[1]-10+window.scrollY).toString()+'px';
         } else if (rheld) {
-            div.style.width = (e.clientX + offset[0]).toString()+'px';
-            div.style.height = (e.clientY + offset[1]).toString()+'px';
+            // includes the border for some reason
+            div.style.width = (e.clientX + offset[0]-24+window.scrollX).toString()+'px';
+            div.style.height = (e.clientY + offset[1]-24+window.scrollY).toString()+'px';
         }
     }, true);
 }
