@@ -69,7 +69,7 @@ article {
 }
 
 .thin {
-    width: min(100%, 800px);
+    width: min(90%, 800px);
 }
 
 .workspace {
