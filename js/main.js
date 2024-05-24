@@ -17,15 +17,17 @@ class Sidebar extends HTMLElement {
         top.style.justifyContent = "flex-start";
 
         const topbuttons = {
-            "home": "/index.html",
-            "article": "/blogs/index.html",
-            "experiment": "/experiments/index.html"
+            "home": ["/index.html", "Home"],
+            "article": ["/blogs/index.html", "Blogs"],
+            "experiment": ["/experiments/index.html", "Experiments"],
+            "playing_cards": ["/blackjack/index.html", "Black Jack"],
         }
 
         for (var key in topbuttons) {
             const newbutton = document.createElement("a");
             newbutton.className = "button";
-            newbutton.href = topbuttons[key];
+            newbutton.href = topbuttons[key][0];
+            newbutton.title = topbuttons[key][1];
 
             const intext = document.createElement("i")
             intext.className = "material-symbols-outlined";
@@ -41,6 +43,7 @@ class Sidebar extends HTMLElement {
 
         const skull = document.createElement("button");
         skull.className = "button";
+        skull.title = "This website boring ahh hell";
         skull.onclick = () => {
             let attentionspan = document.getElementById("popupclip");
             if (!attentionspan) {
@@ -73,6 +76,7 @@ class Sidebar extends HTMLElement {
 
         const floatwin = document.createElement("button");
         floatwin.className = "button";
+        floatwin.title = "Tiling mode";
 
         const floattext = document.createElement("i");
         floattext.className = "material-symbols-outlined";
@@ -135,6 +139,7 @@ class Sidebar extends HTMLElement {
         const fallwin = document.createElement("button");
         fallwin.className = "button";
         fallwin.style.display = "none";
+        fallwin.title = "Gravity";
 
         const falltext = document.createElement("i");
         falltext.className = "material-symbols-outlined";
