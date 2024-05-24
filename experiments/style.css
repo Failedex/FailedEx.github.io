@@ -11,9 +11,9 @@
     padding: 10px;
 
     /* annoying ass phone users */
-    max-width: min(500px, 90%);
-    max-height: min(300px, 90%);
-    overflow-y: scroll;
+    width: min(500px, 90%);
+    /* height: 400px; */
+    /* overflow-y: scroll; */
 
     text-align: center;
     text-wrap: wrap;
