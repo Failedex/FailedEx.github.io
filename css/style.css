@@ -12,6 +12,10 @@
     --blue: #78a9ff;
 }
 
+html {
+    scroll-snap-type: y mandatory;
+}
+
 body {
     background-color: var(--fg);
     background-image: url("../assets/tile.png");
@@ -91,6 +95,7 @@ article {
     flex-direction: column; 
     flex-grow: 1; 
     max-height: 100%;
+    scroll-snap-align: start;
 }
 
 .bar {
