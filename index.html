@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Main</title>
         <link href="./css/style.css" rel="stylesheet">
+        <link href="./css/mainpage.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
         <script src="/js/main.js" type="module"></script>
@@ -18,7 +19,7 @@
                     <div style="width: 50vw; text-align: center;">
                         <h1>About</h1>
                         <p>I'm Failed, a computer science and math major. I also kinda like programming and Linux.</p>
-                        <p>This website was aimed less towards professionalism and more towards fun. If you're wondering why this website looks unconventional and abnormal, it's because the layout of this website resembles my <a href="https://github.com/Failedex/CarbonMonoxide" draggable="false">desktop environment</a>, which was done intentionally as a joke.</p>
+                        <p>This website was aimed less towards professionalism and more towards fun. If you're wondering why this website looks unconventional and abnormal, it's because the layout of this website resembles my <a href="https://github.com/Failedex/CarbonMonoxide" draggable="false">desktop environment</a>, which was done intentionally.</p>
                         <p>As time goes on, I plan to add dumb and silly things to this website (no spoilers) as well as some normal things like a blog or project showcases.</p>
                         <p>Enjoy your stay!</p>
                     </div>
@@ -28,13 +29,31 @@
                 <article class="centered">
                     <img style="pointer-events: none;" src="./assets/fieshidle.gif" alt="profile picture" style="width: 100px; height: 100px;">
                     <h2>Hello I'm Failed!</h2>
-                </article>
-                <article class="centered">
-                    <h1>Me in other places:</h1>
                     <ul>
                         <li>Discord: failed.sh</li>
                         <li>Github: <a href="https://github.com/Failedex" draggable="false">FailedExperiment</a></li>
                     </ul>
+                </article>
+                <article class="centered">
+                    <h2>Navigation</h2>
+                    <div id="navwindow">
+                        <a href="/" class="button naventry current">
+                            <i class="material-symbols-outlined">home</i>
+                            <p>Home</p>
+                        </a>
+                        <a href="/blogs/index.html" class="button naventry">
+                            <i class="material-symbols-outlined">article</i>
+                            <p>Blogs</p>
+                        </a>
+                        <a href="/experiments/index.html" class="button naventry">
+                            <i class="material-symbols-outlined">experiment</i>
+                            <p>Experiments</p>
+                        </a>
+                        <a href="/blackjack/index.html" class="button naventry">
+                            <i class="material-symbols-outlined">playing_cards</i>
+                            <p>Blackjack</p>
+                        </a>
+                    </div>
                 </article>
             </div>
         </div>

@@ -20,7 +20,7 @@ class Sidebar extends HTMLElement {
             "home": ["/index.html", "Home"],
             "article": ["/blogs/index.html", "Blogs"],
             "experiment": ["/experiments/index.html", "Experiments"],
-            "playing_cards": ["/blackjack/index.html", "Black Jack"],
+            "playing_cards": ["/blackjack/index.html", "Blackjack"],
         }
 
         for (var key in topbuttons) {
