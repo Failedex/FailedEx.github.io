@@ -19,7 +19,6 @@ html {
 body {
     background-color: var(--fg);
     background-image: url("../assets/tile.png");
-    height: 100%;
 }
 
 h1 {
@@ -48,14 +47,48 @@ code {
     background-color: var(--bg2);
     text-align: center;
 
+    display: flex;
+
     transition: color 500ms;
     transition: background-color 500ms;
+}
+
+.button > * {
+    margin: 3px;
+    padding: 0px;
 }
 
 .button:hover {
     cursor: pointer;
     background-color: var(--acc);
     color: var(--bg2)
+}
+
+.menushow {
+    position: relative;
+    display: none;
+    text-align: center
+}
+
+.menushow > .button {
+    justify-content: center;
+}
+
+.smallbutton {
+    display: none;
+}
+
+.largebutton {
+    display: flex;
+}
+
+@media screen and (max-width: 1000px) {
+    .largebutton {
+        display: none;
+    }
+    .smallbutton {
+        display: flex
+    }
 }
 
 a {
@@ -88,7 +121,7 @@ article {
     left: 0px;
     right: 0px;
     margin: 5px;
-    margin-left: 55px;
+    margin-top: 55px;
 
     display: flex;
     flex-wrap: wrap-reverse;
@@ -104,23 +137,25 @@ article {
     scroll-snap-align: start;
 }
 
-.bar {
+.barwrap {
     position: fixed; 
     top: 0;
     left: 0;
-    height: 100%;
+    width: 100%;
 
     background-color: var(--bg);
     color: var(--acc);
+    z-index: 99999999;
+}
 
+.bar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
 }
 
 .subbar {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
 }
 .centered {
     display: flex;
@@ -176,7 +211,7 @@ article {
 
 /* override popup property for notifications */
 .notif {
-    top: 10px;
+    top: 60px;
     right: 10px;
     bottom: unset;
 
