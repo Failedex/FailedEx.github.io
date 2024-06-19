@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>How to draw a line</title>
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+        <script src="/js/main.js" type="module"></script>
+    </head>
+    <body>
+        <custom-bar></custom-bar>
+        <div class="workspace">
+            <div>
+                <article class="vcentered">
+                    <div class="thin">
+                        <h1>I drew a line from one point to another (real)</h1>
+                        <h3>19/6/2024</h3>
+                        <hr>
+
+                        <video class="blogmedia" controls>
+                            <source src="./media/ewwdonut.mp4" type="video/mp4">
+                            A spinning donut written in eww.
+                        </video>
+                        <p>So the other day, I had the idea of creating some sort of renderer using the eww widget system. Note that this is a very bad idea, and I do not recommend this project idea to anyone. My initial idea was to simply draw every pixel, which would probably end up looking cool and retro (maybe).</p>
+                        <p>This idea was short-lived as it completely broke eww, I ended up not being able to open my dotfiles.</p>
+                        
+                        <img class="blogmedia" src="./media/ewwbroke.png" alt="Eww broke lol">
+
+                        <p>So what happened here? Well turns out my log file (located under <code>~/.cache/eww/</code>) was like 20GB. Removing the log file fixed eww.</p>
+                        <p>I'm still not fully sure what had happened, but I took this as a warning that I should not be using eww as a renderer, and I definitely should not be initializing 57600 boxes just to render some lines.</p>
+
+                        <p>Anyway, let's find a different way to create this renderer. Let's ask other equally insane people:</p>
+                        <img class="blogmediasmall" src="./media/helpme.png" alt="I ask for help">
+
+                        <p>Damn Aylur, why did you have to crush my dreams like that. Ok it's fine, Aylur did point us to a different starting point, boxes.</p>
+                        <p>As Aylur said, horizontal and vertical lines are possible using thin boxes. Unfortunately, boxes will strictly create horizontal and vertical lines. How do we draw lines of any angle?</p>
+
+                        <p>Simple, let's just rotate the line/box to our desired angle! (not simple, actually)</p>
+
+                        <h2>How to rotate something</h2>
+                        <p>Eww has a widget named <code>transform</code>, which allows you to rotate, scale, and translate things.</p>
+                        <p>"Oh hey <code>transfrom</code> allows you to rotate items! That was easy!"</p>
+                        <p>My brother in Christ you don't understand the pain I had to go through to utilize this widget. Here is a video of me trying to rotate potatoes</p>
+
+                        <video class="blogmedia" controls>
+                            <source src="./media/rotation.mp4" type="video/mp4">
+                            rotating potatoes
+                        </video>
+
+                        <p>What I got from this:</p>
+                        <ul>
+                            <li>Rotation is not from the center, it from the top left (reasonable).</li>
+                            <li>Angles are not in degrees or radians, it is from 0 to 100.</li>
+                            <li><code>transform</code> tends to cut off parts of the children that isn't in the original box area (i.e. the rectangle of the potato image before it was transformed).</li>
+                            <li>Not shown in the video, but <code>transform</code> prioritizes translation over rotation. Translation will be done first.</li>
+                        </ul>
+
+                        <p>But there's more. Let's translate the potatoes to the top left, rotate it, and translate it back, essentially rotating the potato from the center.</p>
+                        <video class="blogmedia" controls>
+                            <source src="./media/rotation2.mp4" type="video/mp4">
+                            rotating potatoes (part 2)
+                        </video>
+
+                        <p><strong>WHAT HAPPENED TO 3/4 OF MY POTATOES???</strong> I can't believe eww would betray me like this. My family will not make it through the winter.</p>
+                        <p>Thinking about it, this is expected. After translating the potato to the top left, you're only left with the bottom right corner of the potatoes. I ended up fixing this using negative margins, but this is painful to work with because you have to deal with a box with negative margins. There are many ways of coping with this. In this example, I centered the potatoes in an expanded box such that margin is irrelevant.</p>
+
+                        <video class="blogmedia" controls>
+                            <source src="./media/rotation3.mp4" type="video/mp4">
+                            rotating potatoes (part 3)
+                        </video>
+
+                        <p>Truth be told, I have no idea how this works. This is usually a fuck around and find out project.</p>
+
+                        <h2>Ok, let's rotate a line</h2>
+                        <p>I didn't want to deal with the quirks of eww's top left pivot rotation fuckery, so I thought it might be easier to rotate each line by its center, though I wasn't sure if it actually was easier.</p>
+
+                        <p>That being said, here is the plan to draw a line.</p>
+
+                        <ol>
+                            <li>Calculate the center point, the length, and the angle of the line.</li>
+                            <li>Pass the information to eww.</li>
+                            <li>Move a square box to the desired location by abusing margins, center this box at the center of the line, and give it the same width as a line.</li>
+                            <li>Create a line in a square wrapper box in the square box. Give it negative margins.</li>
+                            <li>Finally, rotate the wrapper box with the line contained.</li>
+                        </ol>
+
+                        <p>You might be wondering why I placed the line in a square wrapper box. The simplest answer to this is that squares are much easier to rotate than rectangles. The more complicated answer is that simply rotating a very thin box (the line) will cut off the line like how the potatoes was cut off, this is simply how <code>transform</code> rotation works. The best answer is that I don't know.</p>
+
+                        <p>You might also be wondering how I came up with such a foolproof plan before I started. Did I understand the inner mechanisms of eww so well that I was capable of coming up with the correct structure in my mind?</p>
+                        <p>No, I actually went into this project without a plan, fucked around, until I eventually got working code. <a href="https://github.com/Failedex/RendererOnEww/blob/main/eww.yuck">Here is the code by the way.</a> I refuse to explain it.</p>
+
+                        <p>Anyway, The result looks like this:</p>
+                        <video class="blogmedia" controls>
+                            <source src="./media/renderframe.mp4" type="video/mp4">
+                            rotating a line.
+                        </video>
+
+                        <p>I've color coded the boxes such that red is the square box moved to the center of the line, and blue is the wrapper box which contains the line.</p>
+                        <p>Questions you might have:</p>
+                        <p>Q: <i>"Why is the wrapper box so much larger than the square box its in?"</i></p>
+                        <p>A: Because the wrapper box has a comically large negative margin value.</p>
+
+                        <p>Q: <i>"Why is there excess blue on the bottom right but not the top left side of the square box?"</i></p>
+                        <p>A: I have no idea. But it has something to do with how eww cut off the potatoes in the earlier example.</p>
+
+                        <p>Q: <i>"That's not red, that's purple</i></p>
+                        <p>A: The opacity of both boxes are set of 0.5, so its actally red and blue, which makes purple.</p>
+
+                        <p>After rotating the line by the right angle, we have successfully drawn a line from one point to another!</p>
+                        
+                        <img class="blogmedia" src="./media/linedot.png" alt="Line matching dots.">
+                        
+                        <h2>End</h2>
+                        <p>Now that we can draw a line from any one point to another, let's render a cube!</p>
+
+                        <video class="blogmedia" controls>
+                            <source src="/experiments/media/rotatingewwcube.mp4" type="video/mp4">
+                            rotating cube frame
+                        </video>
+
+                        <p>And a donut!</p>
+                        <video class="blogmedia" controls>
+                            <source src="./media/ewwdonut.mp4" type="video/mp4">
+                            rotating cube frame
+                        </video>
+
+                        <p>Rendering this donut was when eww started reaching it's limits. I had to cut down on the lines and reduce the frame rate for it to run. It's clear that I can't really push this idea any further, so I'll stop for now.</p>
+
+                        <p>The code for this project can be found <a href="https://github.com/Failedex/RendererOnEww/blob/main/eww.yuck">here</a>. Thanks for reading my delve into insanity.</p>
+                        <p>-Failed</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </body>
+</html>
