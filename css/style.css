@@ -99,7 +99,7 @@ article {
     position: relative;
     flex-grow: 1; 
 
-    overflow-y: scroll;
+    overflow-y: auto;
 
     background-color: var(--bg);
     color: var(--fg);
@@ -125,7 +125,7 @@ article {
 
     display: flex;
     flex-wrap: wrap-reverse;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .workspace > div{
