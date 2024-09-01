@@ -11,7 +11,7 @@ export function makefall (div, oldpos) {
         // can't really explain it but this works
         velocity[1] -= gravity;
 
-    if (pos.left < window.scrollX+50 && velocity[0] < 0) {
+    if (pos.left < window.scrollX && velocity[0] < 0) {
         div.style.left = (window.scrollX).toString()+"px";
         velocity[0] *= -1;
     }

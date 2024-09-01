@@ -38,6 +38,15 @@ code {
     background-color: var(--bg3);
 }
 
+pre {
+    overflow-x: auto;
+    background-color: var(--bg3);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    border-color: var(--bg2);
+}
+
 .button {
     all: unset;
     margin: 5px;
