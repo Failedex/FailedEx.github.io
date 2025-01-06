@@ -133,7 +133,7 @@ article {
     margin-top: 55px;
 
     display: flex;
-    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
     overflow-y: auto;
 }
 
