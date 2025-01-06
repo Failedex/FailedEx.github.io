@@ -187,6 +187,7 @@ article {
     margin-top: 5px;
     margin-bottom: 5px;
     width: var(--size);
+    border-radius: 5px;
 }
 .blogmediasmall {
     --size: min(95%, 400px);
@@ -195,6 +196,7 @@ article {
     margin-top: 5px;
     margin-bottom: 5px;
     width: var(--size);
+    border-radius: 5px;
 }
 
 
