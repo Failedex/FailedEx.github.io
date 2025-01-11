@@ -82,12 +82,12 @@
                         <ol>
                             <li>Calculate the center point, the length, and the angle of the line.</li>
                             <li>Pass the information to eww.</li>
-                            <li>Move a square box to the desired location by abusing margins, center this box at the center of the line, and give it the same width as a line.</li>
-                            <li>Create a line in a square wrapper box in the square box. Give it negative margins.</li>
-                            <li>Finally, rotate the wrapper box with the line contained.</li>
+                            <li>Move a square box to the desired location by abusing margins, center this box at the center of the line, and give it the same width as the line.</li>
+                            <li>Create a line in a square wrapper box in the square box and give it negative margins. Instead of rotating a box as thin as a line, we will rotate the wrapper square containing the line.</li>
+                            <li>Rotate the wrapper box with the line contained.</li>
                         </ol>
 
-                        <p>You might be wondering why I placed the line in a square wrapper box. The simplest answer to this is that squares are much easier to rotate than rectangles. The more complicated answer is that simply rotating a very thin box (the line) will cut off the line like how the potatoes was cut off, this is simply how <code>transform</code> rotation works. The best answer is that I don't know.</p>
+                        <p>You might be wondering why I'm rotating the square wrapper box instead of just the line. The simplest answer to this is that squares are much easier to rotate than rectangles. The more complicated answer is that simply rotating a very thin rectangle (the line) will cut off the line like how the potatoes was cut off, this is simply how <code>transform</code> rotation works. The best answer is that I don't know.</p>
 
                         <p>You might also be wondering how I came up with such a foolproof plan before I started. Did I understand the inner mechanisms of eww so well that I was capable of coming up with the correct structure in my mind?</p>
                         <p>No, I actually went into this project without a plan, fucked around, until I eventually got working code. <a href="https://github.com/Failedex/RendererOnEww/blob/main/eww.yuck">Here is the code by the way.</a> I refuse to explain it.</p>
