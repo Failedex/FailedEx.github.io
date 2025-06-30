@@ -1,8 +1,10 @@
 import { Topbar, ProjectBox } from "./components.js";
+import { titlebars } from "./titlebars.js";
 
 // customElements.define("side-bar", Sidebar);
 customElements.define("custom-bar", Topbar);
 customElements.define("project-item", ProjectBox);
+titlebars();
 
 // let workspace = document.getElementsByClassName("workspace");
 // if (workspace.length >= 1) {

@@ -61,7 +61,7 @@ export class Topbar extends HTMLElement {
             if (!menu.out) {
                 menu.style.transform = "translateY(0) scaleY(1)";
                 menu.style.height = menuheight.toString() + "px";
-                bcorners.style.top = (menuheight + 50).toString() + "px";
+                bcorners.style.top = (menuheight + 60).toString() + "px";
                 menu.out = true;
             } else {
                 menu.style.transform = "translateY(-100%) scaleY(0)";
@@ -407,8 +407,10 @@ export class ProjectBox extends HTMLElement {
         super();
     }
 
-
     connectedCallback () {
+        if (this.childNodes.length > 0) {
+            return;
+        }
         const title = this.getAttribute("title");
         const link = this.getAttribute("link");
         const file = this.getAttribute("file");

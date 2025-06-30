@@ -13,10 +13,10 @@ export function makefloat (div, position) {
     div.style.position = "fixed";
     div.style.top = (position.top-10+window.scrollY).toString()+"px";
     div.style.left = (position.left-10+window.scrollX).toString()+"px";
-    div.style.height = (position.height-24).toString()+"px";
-    div.style.width = (position.width-24).toString()+"px";
+    div.style.height = (position.height-4).toString()+"px";
+    div.style.width = (position.width-4).toString()+"px";
     div.style.userSelect = "none";
-    childSet(div, "pointer-events", "none");
+    childSet(div.querySelector('.content'), "pointer-events", "none");
     div.style.zIndex = 1;
 
     if (div.getAttribute('listener') === 'true') 
@@ -88,7 +88,7 @@ export function unmakefloat (div) {
     div.style.height = "";
     div.style.width = "";
     div.style.userSelect = "";
-    childSet(div, "pointer-events", "");
+    childSet(div.querySelector('.content'), "pointer-events", "");
     zcount = 1;
 }
 

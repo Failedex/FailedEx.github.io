@@ -120,15 +120,21 @@ article {
     position: relative;
     flex-grow: 1; 
 
-    overflow-y: auto;
-
     background-color: var(--bg);
     color: var(--fg);
     border-radius: var(--round);
     border: 2px solid var(--bg3);
+    overflow-y: auto;
 
     margin: 10px;
+}
+
+.content {
+    overflow-y: auto;
     padding: 10px;
+    padding-top: 45px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
 }
 
 .thin {
@@ -149,7 +155,7 @@ article {
     overflow-y: auto;
 }
 
-.workspace > div{
+.workspace > div {
     display: flex; 
     flex-basis: 0;
     flex-direction: column; 
@@ -260,4 +266,28 @@ article {
     top: -300px;
     right: 10px;
     bottom: unset;
+}
+
+.titlebar {
+    position: absolute;
+    background-color: var(--bg3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    z-index: 1;
+    display: flex; 
+    justify-content: space-between;
+    .sub {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 7px;
+        display: flex;
+        .actionbutton {
+            width: 17px;
+            height: 17px;
+            margin: 1px 3px;
+            border-radius: 50%;
+        }
+    }
 }
