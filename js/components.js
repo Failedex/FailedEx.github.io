@@ -20,6 +20,9 @@ export class Topbar extends HTMLElement {
         top.className = "subbar";
         top.style.justifyContent = "flex-start";
 
+        const bcorners = document.createElement("div"); 
+        bcorners.className = "bcorners"
+
         const topbuttons = {
             "home": ["/index.html", "Home"],
             "article": ["/blogs/index.html", "Blogs"],
@@ -52,11 +55,20 @@ export class Topbar extends HTMLElement {
         const menutoggle = document.createElement("a");
         menutoggle.className = "button smallbutton";
         menutoggle.innerHTML = `<i class="material-symbols-outlined">Menu</i>`;
+        let menuheight = 195;
+        menu.out = false;
         menutoggle.onclick = () => {
-            if (menu.style.display !== "block") 
-                menu.style.display = "block";
-            else
-                menu.style.display = "none";
+            if (!menu.out) {
+                menu.style.transform = "translateY(0) scaleY(1)";
+                menu.style.height = menuheight.toString() + "px";
+                bcorners.style.top = (menuheight + 50).toString() + "px";
+                menu.out = true;
+            } else {
+                menu.style.transform = "translateY(-100%) scaleY(0)";
+                bcorners.style.top = "50px";
+                menu.style.height = "0px";
+                menu.out = false;
+            }
         }
         top.appendChild(menutoggle);
 
@@ -204,6 +216,7 @@ export class Topbar extends HTMLElement {
         bar.appendChild(bottom);
         wrap.appendChild(bar);
         wrap.appendChild(menu);
+        wrap.appendChild(bcorners);
         this.appendChild(wrap);
     }
 }

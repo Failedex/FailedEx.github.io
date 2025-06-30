@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Abusing i3ipc (because I can)</title>
+        <title>What the hell is an "ipc"?</title>
         <link href="/css/style.css" rel="stylesheet">
         <link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -16,26 +16,53 @@
             <div>
                 <article class="vcentered">
                     <div class="thin">
-                        <h1>Abusing i3ipc (because I can)</h1>
-                        <h3>11/5/2025</h3>
+                        <h1>What the hell is an "ipc"?</h1>
+                        <h3>12/6/2025</h3>
                         <hr>
 
-                        <!--<p>I seem to have found some enjoyment behind creating things that are seemingly impossible. Not for the purposes of innovation or improving the Linux ecosystem, but mainly because I can.</p>-->
-                        <!--<p>You see, almost everything is possible if you are willing to accept the drawbacks:</p>-->
-                        <!--<ul>-->
-                        <!--    <li>Long distance communication is possible, but only if you are willing to learn Morse code.</li>-->
-                        <!--    <li>Foldable smartphones are possible, but only if you are willing to have a plastic screen.</li>-->
-                        <!--    <li>Artificial intelligence is possible, but only if you are willing to buy a shit ton of computational power.</li>-->
-                        <!--</ul>-->
-                        <!--<p>Sacrifices have to be made to make something possible, but once something is no longer deemed impossible, that's when improvements can be made to work around the caveats.</p>-->
-                        <!---->
-                        <!--<p>If you're willing to accept the inconvenience that comes with making something possible, almost nothing is impossible.</p>-->
-                        <!---->
-                        <!--<p>That said, let's move onto the main topic of this blog.</p>-->
+<!--
+What the hell is an ipc?
+- Why I use sway
+- The importance of an ipc
+- introduction to i3ipc
+- Pushing the limits
+- The very important point
+-->
 
-                        <h2>The ridiculous power of i3ipc</h2>
+                        <p>Many people often wonder why I use swayfx over something objectively better like niri or Hyprland. The answer is simple, <s>I'm too lazy to switch</s> Hyprland is too popular, and niri's ipc has a long way to go.</p>
+                        <p>But what the hell do I mean by "ipc"?</p>
+                        <p>"Interprocess communication (ipc) and refers to the mechanism by which different programs (or processes) on a computer can communicate and exchange data with each other." - Google</p>
+                        <p>When I use the term "ipc", I am refering to the means of communication between my window manager/compositor and any other program I use or write.</p>
+                        <p>Different window managers/compositors provide different ways of communication between the programs and itself, some are easy to use, some are powerful, and some simply just don't exist.</p>
+                        <p>In the context of creating widgets or a shell, communication between your widgets and window manager play a big part in making a good desktop. Having a workspace indicator or dock sells the illusion that your window manager and shell is one of the same, which is why having a way to communication with your window manager is so important.</p>
+                        <p>But if ipcs are so important, why isn't anyone talking about it?</p>
+                        <p>Truth is, most ricers won't ever have to touch an ipc since the tools they use already do this for them</p>
+                        <ul>
+                            <li>Extended Window Manager Hints (EWMH) provide guidelines for X11 window managers, enabling tools like polybar to get workspace information from any X11 window managers</li>
+                            <li>Tools like waybar already deal with the dirty work of communicating with the compositor, so they already have support for workspace indicators and other stuff</li>
+                            <li>Awesomewm provides a widget system with full access everything the window manager has to offer</li>
+                            <li>Widget systems like Astal has libraries to communicate with your respective compositor</li>
+                        </ul>
 
-                        <p>i3 is fairly popular beginner window manager within the unixporn community a few years ago, but seemed to have died in popularity ever since Hyprland was released. It comes with a very sane ipc that does pretty much does everything you would expect it to do, like getting window information, workspace information, and configure stuff on the fly.</p>
+                        <p>For the sprinkle of users that use tools that doesn't provide ipc support, they will have to connect their shell with the window manager manually.</p>
+
+                        <h2>I3ipc</h2>
+
+                        <p>I've mentioned many times that i3's ipc is one of if not the best, I've also dedicated a chunk of my time making projects to show just how much you can truly do with just the ipc. Basically, I've dedicated half of my ricing career implicitly shilling and advertising sway and it's potential, but now that people actually believe me, I'm gonna talk about how mid i3ipc actually is.</p>
+
+                        <p>No, i3ipc isn't compiz, it does not allow for crazy desktop effects or custom animations. Here's a quick summary of what it actually provides</p>
+
+                        <ul>
+                            <li>Window manager information</li>
+                            <li>Configure the i3/sway at run time</li>
+                        </ul>
+
+                        <p>In terms of window manager information, it provides pretty much everything there is to know about the state of the window manager, everything from outputs to windows. In terms of controlling the window manager, you're limited to the things you can do in the config file. The general rule of thumb with i3ipc is that an operation is possible with the ipc if and only if it's possible in the config file.</p>
+
+                        <p>I feel the need to point out the limitation of i3ipc because I feel as if I've convinced others to view it as a tool that can make your dreams come true, when in reality it just another way to control window manager. However, That's not to say i3ipc isn't a good tool. As a ricer, my baseline for a "good" ipc is if it can successfully provide the information I need for my widget, and i3ipc passes flawlessly.</p>
+
+                        <h2>Pushing the limits</h2>
+                        <p>This section mainly highlights my experience abusing i3ipc to do things that shouldn't be possible.</p>
                         <p>Last year, I was messing with the ipc when I noticed the ability to set window position and size. I didn't think much of it initially, but the following week, I realised that this was all you need to add animations to windows. To provide context, I was using sway at the time, which is just i3 but as a wayland compositor instead of an X11 window manager. While window animations are possible on i3 with the use of picom, animations on sway were hands down impossible at the time (and still technically is). However, animations are just a bunch of frames cleverly put together to create a smooth motion, so what's stopping me from creating those frames by adjusting the window size and position every 60hz?</p>
 
                         <p>Efficiency. This idea of setting the window position every 60hz is simply too absurd to be considered a viable option. Sway/i3 has a community capable of scripting, so if this was a good idea, someone would have already added animations to sway.</p>
@@ -60,9 +87,6 @@
                         <p>Out of all my other project, this one was definitely the hackiest out of them all. In my defense however, it was poorly executed due to my lack of experience with i3ipc, and as one of my first projects with this ipc, I think I did a pretty good job!</p>
 
                         <h2>1 year later, January 2025</h2>
-
-                        <p>Many people often wonder why I use swayfx over something objectively better like niri or Hyprland. The answer is simple, <s>I'm too lazy to switch</s> Hyprland is too popular, and niri's ipc has a long way to go.</p>
-                        <p>As someone who likes making widgets, I understand the importance of a good ipc. It only makes sense that the communication between your widgets and window manager play a big part in making a functional desktop. Having a workspace indicator or dock sells the illusion that your window manager and shell is one of the same, which is a major reason why Awesomewm is a good window manager. Since I'm not on Awesomewm, I have to make use of what the ipc provides to create a sense of unity between my window manager and my shell.</p>
 
                         <p>As we all know, sway/i3 has a very sane ipc that does pretty much everything you would expect it to do. That alone was enough to keep me tethered to sway for the past 2 years. Niri on the other hand, was a new kid on the block, its ipc could barely hold a candle to sway's ipc. Despite this, I was quite a big fan of its unique scrollable tiling behaviour, mostly because it gave me many cool widget ideas. Unfortunately these cool widget ideas were not possible by the limitations of niri's ipc.</p>
 

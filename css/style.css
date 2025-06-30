@@ -10,6 +10,7 @@
     --fg: #dde1e6;
     --acc: #ff7eb6;
     --blue: #78a9ff;
+    --round: 10px;
 }
 
 html {
@@ -56,7 +57,7 @@ pre {
     all: unset;
     margin: 5px;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: var(--round);
 
     background-color: var(--bg2);
     text-align: center;
@@ -80,8 +81,14 @@ pre {
 
 .menushow {
     position: relative;
-    display: none;
-    text-align: center
+    display: block;
+    padding: 5px;
+    background-color: var(--bg);
+    color: var(--acc);
+    transition: 500ms;
+    height: 0px;
+    transform: translateY(-100%) scaleY(0);
+    text-align: center;
 }
 
 .menushow > .button {
@@ -117,7 +124,7 @@ article {
 
     background-color: var(--bg);
     color: var(--fg);
-    border-radius: 5px;
+    border-radius: var(--round);
     border: 2px solid var(--bg3);
 
     margin: 10px;
@@ -152,19 +159,33 @@ article {
     min-width: min(400px, 90%);
 }
 
+.bcorners {
+    transition: 500ms;
+    position: fixed; 
+    top: 50px;
+    left: 0;
+    width: 100%;
+    border-top-left-radius: calc(var(--round) + 10px);
+    border-top-right-radius: calc(var(--round) + 10px);
+    box-shadow: 0px calc(var(--round) * -1) 0px var(--round) var(--bg);
+    width: 100vw;
+    height: calc(var(--round) + 10px);
+    z-index: -1;
+}
+
 .barwrap {
     position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
 
-    background-color: var(--bg);
-    color: var(--acc);
-    z-index: 99999999;
+    z-index: 999;
 }
 
 .bar {
     display: flex;
+    background-color: var(--bg);
+    color: var(--acc);
     justify-content: space-between;
 }
 
@@ -192,7 +213,7 @@ article {
     margin-top: 5px;
     margin-bottom: 5px;
     width: var(--size);
-    border-radius: 5px;
+    border-radius: var(--round);
 }
 .blogmediasmall {
     --size: min(95%, 400px);
@@ -201,7 +222,7 @@ article {
     margin-top: 5px;
     margin-bottom: 5px;
     width: var(--size);
-    border-radius: 5px;
+    border-radius: var(--round);
 }
 
 
@@ -216,7 +237,7 @@ article {
     background-color: var(--bg);
     color: var(--fg);
     border: 2px solid var(--bg3);
-    border-radius: 5px;
+    border-radius: var(--round);
 
     margin: 10px;
     padding: 5px;
