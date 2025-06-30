@@ -66,6 +66,7 @@ export function titlebars () {
             left.innerHTML = title;
         }
         right.className = "sub";
+        right.style.overflow = "unset";
 
         for (const key in actions) {
             const button = document.createElement("a");

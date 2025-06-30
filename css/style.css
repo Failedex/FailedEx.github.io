@@ -280,10 +280,12 @@ article {
     justify-content: space-between;
     .sub {
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: "-";
         margin: 7px;
         display: flex;
         .actionbutton {
+            min-width: 17px;
+            min-height: 17px;
             width: 17px;
             height: 17px;
             margin: 1px 3px;
