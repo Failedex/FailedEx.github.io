@@ -119,6 +119,7 @@ a {
 article {
     position: relative;
     flex-grow: 1; 
+    flex-basis: 0;
 
     background-color: var(--bg);
     color: var(--fg);
@@ -153,13 +154,20 @@ article {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
+
+    #master-stack {
+        flex-grow: 2; 
+    }
+
+    #slave-stack {
+        flex-grow: 1;
+    }
 }
 
 .workspace > div {
     display: flex; 
     flex-basis: 0;
     flex-direction: column; 
-    flex-grow: 2; 
     height: 100%;
     scroll-snap-align: start;
     min-width: min(400px, 90%);
@@ -283,13 +291,14 @@ article {
         text-overflow: "-";
         margin: 7px;
         display: flex;
-        .actionbutton {
-            min-width: 17px;
-            min-height: 17px;
-            width: 17px;
-            height: 17px;
-            margin: 1px 3px;
-            border-radius: 50%;
-        }
     }
+}
+
+.actionbutton {
+    min-width: 17px;
+    min-height: 17px;
+    width: 17px;
+    height: 17px;
+    margin: 1px 3px;
+    border-radius: 50%;
 }

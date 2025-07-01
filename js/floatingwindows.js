@@ -1,4 +1,4 @@
-var zcount = 1;
+var zcount = 2;
 
 function childSet (div, attribute, value) {
     div.childNodes.forEach(element => {

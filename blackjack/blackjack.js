@@ -120,7 +120,7 @@ class BlackJack {
 
         this.revealHidden();
 
-        while (this.handValue(this.dealer) < 17) {
+        while (this.handValue(this.dealer) < 17 && this.dealer.length < 5) {
             const newCard = this.randomCard()
             this.dealer.push(newCard);
             this.dealBoard.appendChild(this.displayCard(newCard));
@@ -128,6 +128,10 @@ class BlackJack {
 
         let deal = this.handValue(this.dealer);
         let play = this.handValue(this.player);
+
+        if (this.dealer.length === 5 && deal <= 21) {
+            return false;
+        }
 
         if (deal > 21 || deal < play) {
             return true;
@@ -187,6 +191,11 @@ function startgame () {
     hit.onclick = () => {
         if (!game.hit()) {
             result.innerText = "You Lost";
+            button.disabled = false;
+            return;
+        } 
+        if (game.player.length === 5) {
+            result.innerText = "You win";
             button.disabled = false;
         }
     };

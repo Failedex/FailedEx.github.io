@@ -1,0 +1,55 @@
+<div class="thin">
+    <h1>How do I use this??</h1>
+    <p>This webpage imitates a window manager (please view this on desktop!). For people unfamiliar with how to use one, read on to learn :).</p>
+
+    <h2>Tiling</h2>
+    <p>The webpage uses <a target="_blank" href="https://dwm.suckless.org/">DWM</a> tiling, which uses the "master stack" layout. On the left is the "master", which is the main working window, and on the right is the "stack", which is all other windows of less importance. There is always one master window (unless there are no windows) and windows in stack can be <strong>promoted</strong> to master, which would demote the old master window to the stack.</p>
+
+    <style>
+    .childcont {
+        display: flex; 
+        flex-direction: column; 
+        height: 100%;
+    }
+    .childbox {
+        border: solid 2px #fff;
+        margin: 10px;
+        flex-grow: 1;
+    }
+    </style>
+
+    <div class="blogmediasmall" style="display: flex; border: solid 2px #fff; aspect-ratio: 16 / 9; margin-top: 30px; margin-bottom: 30px;">
+        <div class="childcont" style="flex-grow: 2; border-right: solid 2px #fff;">
+            <div class="childbox centered">
+                master
+            </div>
+        </div>
+        <div class="childcont" style="flex-grow: 1;">
+            <div class="childbox centered">
+                stack
+            </div>
+            <div class="childbox centered">
+                stack
+            </div>
+            <div class="childbox centered">
+                stack
+            </div>
+        </div>
+    </div>
+
+    <p>You can also toggle floating mode with the <i class="material-symbols-outlined" style="font-size: 18px;">dock_to_left</i> button on the top right</p>
+
+    <h2>Titlebar buttons</h2>
+    <div style="display: flex; align-items: center; gap: 0px 10px;">
+        <a class="actionbutton" style="background-color: #42be65;"></a>
+        <p>Promotes window to master</p>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0px 10px;">
+        <a class="actionbutton" style="background-color: #82cfff;"></a>
+        <p>Full screens window</p>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0px 10px;">
+        <a class="actionbutton" style="background-color: #ff7eb6;"></a>
+        <p>Closes window</p>
+    </div>
+</div>

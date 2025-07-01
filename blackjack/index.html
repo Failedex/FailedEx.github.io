@@ -14,7 +14,7 @@
     <body>
         <custom-bar></custom-bar>
         <div class="workspace">
-            <div>
+            <div id="master-stack">
                 <article class="centered" label="Blackjack">
                     <div class="game">
                         <div class="board" id="dealer"></div>
@@ -28,6 +28,34 @@
                             <p style="text-align: center;" id="result">Good luck</p>
                         </div>
                         <div class="board" id="player"></div>
+                    </div>
+                </article>
+            </div>
+            <div id="slave-stack">
+                <article label="Rules" class="vcentered">
+                    <div class="thin">
+                        <h1>How to play blackjack</h1>
+                        <p>The goal of the game is to get the sum of your cards as close as possible to 21, but if you go over 21 you bust (lose). Note that J, Q, and K are worth 10, and A can be worth 1 or 11 (whichever is more convenient).</p>
+
+                        <p>You are playing against the dealer (top), you (bottom) can win by:</p>
+                        <ul>
+                            <li>Having a value higher than the dealer without busting</li>
+                            <li>Having 5 cards in your hands without busting</li>
+                            <li>If the dealer bust</li>
+                        </ul>
+
+                        <p>Note that if you bust, the dealer immediately wins.</p>
+
+                        <p>You start before the dealer, and on your turn you may</p>
+                        <ul>
+                            <li>Hit: draw a card</li>
+                            <li>Stand: pass the turn to the dealer</li>
+                        </ul>
+
+                        <p>You may hit however many times you want before you stand.</p>
+
+                        <p>The dealer plays by the same rules, but will hit if and only if it has a value of less than 17.</p>
+
                     </div>
                 </article>
             </div>
