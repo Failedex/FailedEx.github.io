@@ -174,7 +174,7 @@ article {
 }
 
 .bcorners {
-    transition: 500ms;
+    transition: top 500ms;
     position: fixed; 
     top: 50px;
     left: 0;

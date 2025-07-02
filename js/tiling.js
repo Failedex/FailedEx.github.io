@@ -63,14 +63,14 @@ export const blankWindow = () => {
     dwm.add(win);
 };
 
-export const spawnWindow = (name, float=false) => {
+export const spawnWindow = (name, float=false, title=null) => {
     const win = document.createElement("article");
     win.className = "vcentered";
     fetch(`../windows/${name}.html`)
     .then(res => res.text())
     .then(cont => {
         win.innerHTML = cont
-        win.setAttribute("label", name);
+        win.setAttribute("label", title ? title : name);
         createTitleBar(win);
         dwm.add(win);
         if (float) {
