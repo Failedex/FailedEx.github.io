@@ -1,163 +1,141 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>n borders</title>
-        <link href="/css/style.css" rel="stylesheet">
-        <link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-        <script src="/js/main.js" type="module"></script>
-    </head>
-    <body>
-        <custom-bar></custom-bar>
-        <div class="workspace">
-            <div>
-                <article class="vcentered" label="Drawing n borders in awesomewm">
-                    <div class="thin">
-                        <h1>Drawing n borders (where n∈ℤ, n>1) in awesomewm</h1>
-                        <h3>1/9/2024</h3>
-                        <hr>
-                        <p>Alternate title: Sway user gets hold of title bar customization for the first time.</p>
-                        <h2>Inspiration and History</h2>
+<div class="thin">
+    <h1>Drawing n borders (where n∈ℤ, n>1) in awesomewm</h1>
+    <h3>1/9/2024</h3>
+    <hr>
+    <p>Alternate title: Sway user gets hold of title bar customization for the first time.</p>
+    <h2>Inspiration and History</h2>
 
-                        <p>Most windows in window managers would have a border around it. Borders are effective and viable because their colour could be used to determine the state of the window. For example, urgent windows would have a bright red colour to indicate urgency.</p>
+    <p>Most windows in window managers would have a border around it. Borders are effective and viable because their colour could be used to determine the state of the window. For example, urgent windows would have a bright red colour to indicate urgency.</p>
 
-                        <p>There is no doubt that borders are a practical and important feature of window managers, but what if we hated practicality and just wanted to waste our time?</p>
+    <p>There is no doubt that borders are a practical and important feature of window managers, but what if we hated practicality and just wanted to waste our time?</p>
 
-                        <p>Around September 2023, r/unixporn started rumoring about the possibility of creating n borders using the power of awesome (awesome window manager). Double and triple borders had been proven to be possible, and had been a trend some time in the past, but no one was clinically insane enough to add more borders. No one except for sewergweller, who thought it was a pretty funny idea. The following was their attempt.</p>
+    <p>Around September 2023, r/unixporn started rumoring about the possibility of creating n borders using the power of awesome (awesome window manager). Double and triple borders had been proven to be possible, and had been a trend some time in the past, but no one was clinically insane enough to add more borders. No one except for sewergweller, who thought it was a pretty funny idea. The following was their attempt.</p>
 
-                        <img class="blogmedia" src="./media/gwcomment2.png" alt="part 2">
-                        <p>Unfortunately for sewergweller, the corners are not drawn properly, so this does not fully count as n border, although it is close. It is unknown whether sewergweller ever succeeded in fixing the corners as there is no further follow up after this image.</p>
+    <img class="blogmedia" src="./articles/4/media/gwcomment2.png" alt="part 2">
+    <p>Unfortunately for sewergweller, the corners are not drawn properly, so this does not fully count as n border, although it is close. It is unknown whether sewergweller ever succeeded in fixing the corners as there is no further follow up after this image.</p>
 
-                        <h2>Creating n borders (n∈ℤ, n>1)</h2>
+    <h2>Creating n borders (n∈ℤ, n>1)</h2>
 
-                        <h3>Base case: Double borders (n=2)</h3>
-                        <p>The idea behind 2 borders in awesome is simple. It builds off awesome's ability to attach title bars on any sides of any window. By attaching a title bar with the width of a border on all sides, and setting it all to the same colour, we can artificially create a border. Awesome provides a border by default, so we essentially have 2 borders. </p>
-                        <img class="blogmedia" src="./media/2borders.png" alt="2 borders">
+    <h3>Base case: Double borders (n=2)</h3>
+    <p>The idea behind 2 borders in awesome is simple. It builds off awesome's ability to attach title bars on any sides of any window. By attaching a title bar with the width of a border on all sides, and setting it all to the same colour, we can artificially create a border. Awesome provides a border by default, so we essentially have 2 borders. </p>
+    <img class="blogmedia" src="./articles/4/media/2borders.png" alt="2 borders">
 
-                        <pre>
+    <pre>
 client.connect_signal("request::titlebars", function(c)
 
-    local width = beautiful.border_width
-    local col = beautiful.accent
+local width = beautiful.border_width
+local col = beautiful.accent
 
-    awful.titlebar(c, { position = "left", size = width, bg = col})
-    awful.titlebar(c, { position = "right", size = width, bg = col})
-    awful.titlebar(c, { position = "top", size = width, bg = col})
-    awful.titlebar(c, { position = "bottom", size = width, bg = col})
+awful.titlebar(c, { position = "left", size = width, bg = col})
+awful.titlebar(c, { position = "right", size = width, bg = col})
+awful.titlebar(c, { position = "top", size = width, bg = col})
+awful.titlebar(c, { position = "bottom", size = width, bg = col})
 
 end)
-                        </pre>
+    </pre>
 
-                        <h3>Induction step: n borders, (n∈ℤ, n>2)</h3>
-                        <p>Having more than 2 borders is the tricky bit. We can't use sewergweller's method of adding n bars into each title bar because we would end up with corners that aren't drawn.</p>
+    <h3>Induction step: n borders, (n∈ℤ, n>2)</h3>
+    <p>Having more than 2 borders is the tricky bit. We can't use sewergweller's method of adding n bars into each title bar because we would end up with corners that aren't drawn.</p>
 
-                        <img class="blogmedia" src="media/fuckedcorner.png" alt="unaligned corner">
+    <img class="blogmedia" src="media/fuckedcorner.png" alt="unaligned corner">
 
-                        <p>Instead of this, we need to draw the top title bar in a way that lets us perceive the corners as normal.</p>
+    <p>Instead of this, we need to draw the top title bar in a way that lets us perceive the corners as normal.</p>
 
-                        <img class="blogmedia" src="media/fixedcorner.png" alt="normal corner">
+    <img class="blogmedia" src="media/fixedcorner.png" alt="normal corner">
 
-                        <p> To do this, we will make a box within a box. The child box will have a set margin such that they are not covering up their parent box.</p>
+    <p> To do this, we will make a box within a box. The child box will have a set margin such that they are not covering up their parent box.</p>
 
-                        <img class="blogmedia" src="media/fixedcornerm.png" alt="margin">
+    <img class="blogmedia" src="media/fixedcornerm.png" alt="margin">
 
-                        <p>This makes 3 borders, what if we wanted more? Well, just do it again! Make more children! Add another boxes in the innermost box! Do it n times!</p>
+    <p>This makes 3 borders, what if we wanted more? Well, just do it again! Make more children! Add another boxes in the innermost box! Do it n times!</p>
 
-                        <p>Here's how I did it.</p>
+    <p>Here's how I did it.</p>
 
-                        <pre>
+    <pre>
 client.connect_signal("request::titlebars", function(c)
-    local width = beautiful.border_width
-    local col1 = beautiful.accent
-    local col2 = beautiful.bg_focus
+local width = beautiful.border_width
+local col1 = beautiful.accent
+local col2 = beautiful.bg_focus
 
-    -- this excludes the outer border (the real border)
-    local n = 7
+-- this excludes the outer border (the real border)
+local n = 7
 
-    local create_borders = function (left, right, top, bottom)
-        -- creates borders recursively
-        -- I'm lazy, so the function is generalised for all titlebar positions
-        local box = wibox.widget {
-            {
-                left = left,
-                right = right,
-                top = top,
-                bottom = bottom,
-                widget = wibox.container.margin
-            },
-            bg = col1,
-            widget = wibox.container.background
-        }
-        local cur = box
+local create_borders = function (left, right, top, bottom)
+-- creates borders recursively
+-- I'm lazy, so the function is generalised for all titlebar positions
+local box = wibox.widget {
+{
+left = left,
+right = right,
+top = top,
+bottom = bottom,
+widget = wibox.container.margin
+},
+bg = col1,
+widget = wibox.container.background
+}
+local cur = box
 
-        -- n-1 because the first one is one of the n borders
-        for i = 1, n-1 do
-            local new = wibox.widget {
-                {
-                    left = left,
-                    right = right,
-                    top = top,
-                    bottom = bottom,
-                    widget = wibox.container.margin
-                },
-                -- toggle between the 2 colors
-                bg = (i%2 == 0) and col1 or col2,
-                widget = wibox.container.background
-            }
-            cur.children[1].widget = new
-            cur = new
-        end
+-- n-1 because the first one is one of the n borders
+for i = 1, n-1 do
+local new = wibox.widget {
+{
+left = left,
+right = right,
+top = top,
+bottom = bottom,
+widget = wibox.container.margin
+},
+-- toggle between the 2 colors
+bg = (i%2 == 0) and col1 or col2,
+widget = wibox.container.background
+}
+cur.children[1].widget = new
+cur = new
+end
 
-        return box
-    end
+return box
+end
 
-    awful.titlebar(c, { position = "left", size = width*n }):setup{
-        create_borders(width, 0, 0, 0),
-        layout = wibox.layout.flex.horizontal
-    }
-    awful.titlebar(c, { position = "right", size = width*n }):setup{
-        create_borders(0, width, 0, 0),
-        layout = wibox.layout.flex.horizontal
-    }
-    awful.titlebar(c, { position = "top", size = width*n }):setup{
-        create_borders(width, width, width, 0),
-        layout = wibox.layout.flex.horizontal
-    }
-    awful.titlebar(c, { position = "bottom", size = width*n }):setup{
-        create_borders(width, width, 0, width),
-        layout = wibox.layout.flex.horizontal
-    }
+awful.titlebar(c, { position = "left", size = width*n }):setup{
+create_borders(width, 0, 0, 0),
+layout = wibox.layout.flex.horizontal
+}
+awful.titlebar(c, { position = "right", size = width*n }):setup{
+create_borders(0, width, 0, 0),
+layout = wibox.layout.flex.horizontal
+}
+awful.titlebar(c, { position = "top", size = width*n }):setup{
+create_borders(width, width, width, 0),
+layout = wibox.layout.flex.horizontal
+}
+awful.titlebar(c, { position = "bottom", size = width*n }):setup{
+create_borders(width, width, 0, width),
+layout = wibox.layout.flex.horizontal
+}
 
 end)
-                        </pre>
+    </pre>
 
-                        <img class="blogmedia" src="media/nborders.png" alt="n borders achieved">
+    <img class="blogmedia" src="./articles/4/media/nborders.png" alt="n borders achieved">
 
-                        <h2>Small side story</h2>
-                        <p>You might have noticed that the desktop appears "smaller" than usual. That is because I was using a backup laptop.</p>
-                        <p>During the creation of this Blog, My main laptop was under repair, which meant that I couldn't use it for the following few weeks. For someone like me, this is majorly inconvenient as my laptop is my main source of entertainment.</p>
-                        <p>Placed in this predicament, I was left with no choice but to bring out the big guns, and use my backup.</p>
+    <h2>Small side story</h2>
+    <p>You might have noticed that the desktop appears "smaller" than usual. That is because I was using a backup laptop.</p>
+    <p>During the creation of this Blog, My main laptop was under repair, which meant that I couldn't use it for the following few weeks. For someone like me, this is majorly inconvenient as my laptop is my main source of entertainment.</p>
+    <p>Placed in this predicament, I was left with no choice but to bring out the big guns, and use my backup.</p>
 
-                        <img class="blogmediasmall" src="media/gilgameshesbirthday.png" alt="my backup laptop's birthday">
-                        <p><strong>Specs:</strong></p>
-                        <ul>
-                            <li>32GB storage</li>
-                            <li>2GB or ram</li>
-                            <li>Intel Celeron N2840</li>
-                            <li>No GPU</li>
-                            <li>11.6 inch screen</li>
-                        </ul>
-                        
-                        <p>This laptop was given to me from a friend a few years ago, as it was on the brink of death. I named it <strong>Gilgamesh, the Consumer of Universes</strong>. Since <strong>Gilgamesh</strong> was way too weak and old, it could no longer run Windows 10, giving me the opportunity to install and try Linux on it (for the first time). There was also a time when I decided to run <strong>Gilgamesh</strong> 24/7 as a server for a whole year, the photo above was taken on day 100 of its uptime.</p>
-                        <p>Since I didn't have access to my main laptop, I had to use <strong>Gilgamesh</strong> for my daily shenanigans, including the coding part of this blog.</p>
-                        <p>Somehow, <strong>Gilgamesh</strong> is still working to this day, despite the pain and troubles it has gone through (mostly my fault). For this reason, it has my respect and appreciation. Thank you very much <strong>Gilgamesh</strong>.</p>
-                        <p>-Failed</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </body>
-</html>
+    <img class="blogmediasmall" src="./articles/4/media/gilgameshesbirthday.png" alt="my backup laptop's birthday">
+    <p><strong>Specs:</strong></p>
+    <ul>
+        <li>32GB storage</li>
+        <li>2GB or ram</li>
+        <li>Intel Celeron N2840</li>
+        <li>No GPU</li>
+        <li>11.6 inch screen</li>
+    </ul>
+    
+    <p>This laptop was given to me from a friend a few years ago, as it was on the brink of death. I named it <strong>Gilgamesh, the Consumer of Universes</strong>. Since <strong>Gilgamesh</strong> was way too weak and old, it could no longer run Windows 10, giving me the opportunity to install and try Linux on it (for the first time). There was also a time when I decided to run <strong>Gilgamesh</strong> 24/7 as a server for a whole year, the photo above was taken on day 100 of its uptime.</p>
+    <p>Since I didn't have access to my main laptop, I had to use <strong>Gilgamesh</strong> for my daily shenanigans, including the coding part of this blog.</p>
+    <p>Somehow, <strong>Gilgamesh</strong> is still working to this day, despite the pain and troubles it has gone through (mostly my fault). For this reason, it has my respect and appreciation. Thank you very much <strong>Gilgamesh</strong>.</p>
+    <p>-Failed</p>
+</div>

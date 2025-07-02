@@ -1,6 +1,7 @@
 import { makefall } from "./gravity.js";
 import { makefloat, unmakefloat } from "./floatingwindows.js";
-import { blankWindow, spawnWindow } from "./tiling.js";
+import { spawnWindow } from "./tiling.js";
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 // idea from https://github.com/Stardust-kyun/stardust-kyun.github.io/blob/main/js/main.js
 export class Topbar extends HTMLElement {
@@ -151,7 +152,7 @@ export class Topbar extends HTMLElement {
         floatwin.onclick = () => {
             if (ffirst) {
                 ffirst = false;
-                spawnWindow("Floating Mode", true);
+                spawnWindow("../windows/Floating Mode.html", "Floating Mode", true);
             }
             const positionmap = [];
             for (const div of document.getElementsByTagName("article")) {
@@ -184,7 +185,7 @@ export class Topbar extends HTMLElement {
         newwin.className = "button";
         newwin.title = "Help?";
         newwin.innerHTML = `<i class="material-symbols-outlined">Help</i>`;
-        newwin.onclick = () => {spawnWindow("Manual", floating)};
+        newwin.onclick = () => {spawnWindow("../windows/Manual.html", "Manual", floating)};
 
         const fallwin = document.createElement("button");
         fallwin.className = "button";
@@ -286,5 +287,36 @@ export class ProjectBox extends HTMLElement {
         footer.innerText = shortdesc;
         
         this.appendChild(footer);
+    }
+}
+
+export class BlogPost extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback () {
+        if (this.childNodes.length > 0) {
+            return;
+        }
+        const title = this.getAttribute("title");
+        const path = this.getAttribute("path");
+        const date = this.getAttribute("date");
+        const desc = this.getAttribute("desc");
+        const src = this.getAttribute("src");
+        const mod = this.getAttribute("md");
+
+        this.className = "box-item"
+        this.innerHTML = `
+        <div class="toppart">
+            <img src="${src}" alt="${title}">
+            <div>
+                <p>${title}</p>
+                <p class="date">${date}</p>
+            </div>
+        </div>
+        <p>${desc}</p>
+        `
+        this.onclick = () => {spawnWindow(path, title, false, mod ? marked.parse : (cont) => cont)};
     }
 }

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Blogs</title>
         <link href="/css/style.css" rel="stylesheet">
+        <link href="./style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
         <script src="/js/main.js" type="module"></script>
@@ -12,18 +13,54 @@
     <body>
         <custom-bar></custom-bar>
         <div class="workspace">
-            <div>
+            <div id="master-stack">
                 <article class="vcentered" label='So-called "blogs"'>
                     <h1>Blogs</h1>
-                    <ul>
-                        <li><a href="./articles/1.html">Just made a webpage</a> - 14/5/2024</li>
-                        <li><a href="./articles/2/2.html">Doing things I shouldn't be doing on a widget system</a> - 22/5/2024</li>
-                        <li><a href="./articles/3/3.html">I drew a line from one point to another (real)</a> - 19/6/2024</li>
-                        <li><a href="./articles/4/4.html">Drawing n borders (where n∈ℤ, n>1) in awesomewm</a> - 1/9/2024</li>
-                        <!--<li><a href="./articles/5/5.html">That time I lost to the best ricer of all time</a> - 6/1/2025</li>-->
-                    </ul>
+
+                    <div class="box-list">
+                        <blog-item
+                            title="Help how do I use this???"
+                            path="../windows/Manual.html"
+                            date="NA"
+                            desc="This isn't a blog, but a navigation manual for this webpage."
+                            src="./thumbnails/help.png"
+                        ></blog-item>
+                        <blog-item
+                            title="Just made a webpage"
+                            path="../blogs/articles/1.html"
+                            date="14/5/2024"
+                            desc="Average first blog. Probably ignorable."
+                            src="./thumbnails/1.jpg"
+                        ></blog-item>
+                        <blog-item
+                            title="Things you shouldn't do on a widget system"
+                            path="../blogs/articles/2/2.html"
+                            date="22/5/2024"
+                            desc="How (and why) I've been creating games on a widget system."
+                            src="./thumbnails/suikabals.png"
+                        ></blog-item>
+                        <blog-item
+                            title="I drew a line from one point to another (real)"
+                            path="../blogs/articles/3/3.html"
+                            date="19/6/2024"
+                            desc="How to draw a line from one point to another in the Eww widget system"
+                            src="./thumbnails/linedraw.png"
+                        ></blog-item>
+                        <blog-item
+                            title="Drawing n borders (where n∈ℤ, n>1) in awesomewm"
+                            path="../blogs/articles/4/4.html"
+                            date="1/9/2024"
+                            desc="Sway user gets hold of title bar customization for the first time, proceeds to go nuts."
+                            src="./thumbnails/borders.png"
+                        ></blog-item>
+                    </div>
                 </article>
             </div>
         </div>
+
+        <script type="module">
+        import { spawnWindow } from "../js/tiling.js";
+        window.spawn = spawnWindow;
+        </script>
     </body>
 </html>

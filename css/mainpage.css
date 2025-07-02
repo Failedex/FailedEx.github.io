@@ -10,11 +10,11 @@
 .naventry {
     display: flex;
     justify-content: start;
-    transition: color 500ms;
-    transition: background-color 500ms;
+    transition: 500ms;
 }
 
 .naventry:hover {
+    transform: scale(1.03, 1.03);
     background-color: var(--acc);
     color: var(--bg2)
 }
