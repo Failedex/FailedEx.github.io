@@ -1,4 +1,4 @@
-import { makefall } from "./gravity.js";
+import { makefall, gravify, ungravify, gravity } from "./gravity.js";
 import { makefloat, unmakefloat } from "./floatingwindows.js";
 import { spawnWindow } from "./tiling.js";
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
@@ -181,6 +181,9 @@ export class Topbar extends HTMLElement {
                 fallwin.style.display = "block";
                 tilemsg("Floating mode!", "Left mouse button to move tiles, right mouse button to resize.")
             } else {
+                if (gravity) {
+                    ungravify();
+                }
                 document.body.setAttribute("oncontextmenu", "");
                 floattext.innerText = "dock_to_left";
                 fallwin.style.display = "none";
@@ -211,38 +214,14 @@ export class Topbar extends HTMLElement {
         falltext.innerText = "arrow_downward";
         fallwin.appendChild(falltext);
 
-        let gravity;
         fallwin.onclick = () => {
             if (addAchievement("gravity")) {
                 tilemsg("Achievement unlocked: Gravity", "Don't think you slick, Newton found out about this already.", 6000)
             }
             if (gravity) {
-                clearInterval(gravity);
-                gravity = null;
+                ungravify();
             } else {
-                const positionmap = [];
-
-                for (const div of document.getElementsByTagName("article")) {
-                    positionmap.push(div.getBoundingClientRect());
-                }
-
-                gravity = setInterval(() => {
-                    let id = 0
-                    for (const div of document.getElementsByTagName("article")) {
-                        if (div.style.position !== "fixed") {
-                            clearInterval(gravity);
-                            gravity = null;
-                            return;
-                        }
-                        let pos = makefall(div, positionmap[id])
-                        if (pos) {
-                            positionmap[id] = pos;
-                            id++;
-                        } else {
-                            positionmap.splice(id, 1);
-                        }
-                    }
-                }, 1000/60)
+                gravify();
             }
         };
 
@@ -251,7 +230,7 @@ export class Topbar extends HTMLElement {
         bottom.appendChild(floatwin);
         setTimeout(() => {
             bottom.appendChild(skull);
-        }, 60000);
+        }, existAchievement("brainrot") ? 1 : 60000);
 
         bar.appendChild(top);
         bar.appendChild(bottom);

@@ -2,6 +2,7 @@ import { makefloat } from "./floatingwindows.js";
 import { createTitleBar } from "./titlebars.js";
 import { tilemsg } from "./components.js";
 import { addAchievement } from "../achievements/achievements.js";
+import { gravify, gravity, ungravify } from "./gravity.js";
 
 class Dwm {
     constructor() {
@@ -16,6 +17,11 @@ class Dwm {
     }
 
     add(div) {
+        let grav = false;
+        if (gravity) {
+            grav = true;
+            ungravify();
+        }
         if (this.master.children.length > 0) {
             const old = this.master.children[0];
             if (!this.slaves || this.slaves.children.length === 0) {
@@ -30,6 +36,8 @@ class Dwm {
             }
         }
         this.master.appendChild(div);
+        if (grav) 
+            gravify();
     }
 
     remove(div) {
