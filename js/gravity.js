@@ -1,6 +1,10 @@
+import { addAchievement, existAchievement } from "../achievements/achievements.js";
+import { tilemsg } from "./components.js";
+import { dwm } from "./tiling.js";
 
 const friction = 0.88;
 const gravity = 3;
+let checkheight = !existAchievement("flyhigh");
 
 export function makefall (div, oldpos) {
     let pos = div.getBoundingClientRect();
@@ -28,6 +32,15 @@ export function makefall (div, oldpos) {
             velocity[1] *= -1;
         } else {
             velocity[1] = 0;
+        }
+    }
+
+    if (checkheight && pos.top < -2000) {
+        checkheight = false;
+        if (addAchievement("flyhigh")) {
+            dwm.remove(div);
+            tilemsg("Ascended Beyond Tiling", "That window is God's problem now.");
+            return null;
         }
     }
 

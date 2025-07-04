@@ -4,8 +4,6 @@ import { spawnWindow } from "./tiling.js";
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 import { existAchievement, addAchievement } from "../achievements/achievements.js";
 
-let count = 0;
-
 export const tilemsg = (head, p, timeout=4000) => {
     let cont = document.getElementById("popupnotify");
     if (!cont) {
@@ -15,8 +13,8 @@ export const tilemsg = (head, p, timeout=4000) => {
         document.body.appendChild(cont);
     }
     let msg = document.createElement("div");
-    msg.className = "popup notifbox gone";
     msg.scrollWidth;
+    msg.className = "popup notifbox gone";
     msg.innerHTML = `
     <div style="display: flex; align-item: center;">
         <h3 style="flex-basis: 0; flex-grow: 1; margin: 5px;">${head}</h3>
@@ -121,6 +119,9 @@ export class Topbar extends HTMLElement {
         skull.className = "button";
         skull.title = "This website boring ahh hell";
         skull.onclick = () => {
+            if (addAchievement("brainrot")) {
+                tilemsg("Achievement unlocked: Brainrot", "My attention span is way too low for this.");
+            }
             let attentionspan = document.getElementById("popupclip");
             if (!attentionspan) {
                 attentionspan = document.createElement("div");
@@ -232,8 +233,13 @@ export class Topbar extends HTMLElement {
                             gravity = null;
                             return;
                         }
-                        positionmap[id] = makefall(div, positionmap[id]);
-                        id++;
+                        let pos = makefall(div, positionmap[id])
+                        if (pos) {
+                            positionmap[id] = pos;
+                            id++;
+                        } else {
+                            positionmap.splice(id, 1);
+                        }
                     }
                 }, 1000/60)
             }
@@ -242,7 +248,9 @@ export class Topbar extends HTMLElement {
         bottom.appendChild(newwin);
         bottom.appendChild(fallwin);
         bottom.appendChild(floatwin);
-        // bottom.appendChild(skull);
+        setTimeout(() => {
+            bottom.appendChild(skull);
+        }, 60000);
 
         bar.appendChild(top);
         bar.appendChild(bottom);

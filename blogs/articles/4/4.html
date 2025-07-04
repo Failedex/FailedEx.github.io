@@ -23,13 +23,13 @@
     <pre>
 client.connect_signal("request::titlebars", function(c)
 
-local width = beautiful.border_width
-local col = beautiful.accent
+    local width = beautiful.border_width
+    local col = beautiful.accent
 
-awful.titlebar(c, { position = "left", size = width, bg = col})
-awful.titlebar(c, { position = "right", size = width, bg = col})
-awful.titlebar(c, { position = "top", size = width, bg = col})
-awful.titlebar(c, { position = "bottom", size = width, bg = col})
+    awful.titlebar(c, { position = "left", size = width, bg = col})
+    awful.titlebar(c, { position = "right", size = width, bg = col})
+    awful.titlebar(c, { position = "top", size = width, bg = col})
+    awful.titlebar(c, { position = "bottom", size = width, bg = col})
 
 end)
     </pre>
@@ -37,15 +37,15 @@ end)
     <h3>Induction step: n borders, (n∈ℤ, n>2)</h3>
     <p>Having more than 2 borders is the tricky bit. We can't use sewergweller's method of adding n bars into each title bar because we would end up with corners that aren't drawn.</p>
 
-    <img class="blogmedia" src="media/fuckedcorner.png" alt="unaligned corner">
+    <img class="blogmedia" src="./articles/4/media/fuckedcorner.png" alt="unaligned corner">
 
     <p>Instead of this, we need to draw the top title bar in a way that lets us perceive the corners as normal.</p>
 
-    <img class="blogmedia" src="media/fixedcorner.png" alt="normal corner">
+    <img class="blogmedia" src="./articles/4/media/fixedcorner.png" alt="normal corner">
 
     <p> To do this, we will make a box within a box. The child box will have a set margin such that they are not covering up their parent box.</p>
 
-    <img class="blogmedia" src="media/fixedcornerm.png" alt="margin">
+    <img class="blogmedia" src="./articles/4/media/fixedcornerm.png" alt="margin">
 
     <p>This makes 3 borders, what if we wanted more? Well, just do it again! Make more children! Add another boxes in the innermost box! Do it n times!</p>
 
@@ -53,66 +53,66 @@ end)
 
     <pre>
 client.connect_signal("request::titlebars", function(c)
-local width = beautiful.border_width
-local col1 = beautiful.accent
-local col2 = beautiful.bg_focus
+    local width = beautiful.border_width
+    local col1 = beautiful.accent
+    local col2 = beautiful.bg_focus
 
--- this excludes the outer border (the real border)
-local n = 7
+    -- this excludes the outer border (the real border)
+    local n = 7
 
-local create_borders = function (left, right, top, bottom)
--- creates borders recursively
--- I'm lazy, so the function is generalised for all titlebar positions
-local box = wibox.widget {
-{
-left = left,
-right = right,
-top = top,
-bottom = bottom,
-widget = wibox.container.margin
-},
-bg = col1,
-widget = wibox.container.background
-}
-local cur = box
+    local create_borders = function (left, right, top, bottom)
+        -- creates borders recursively
+        -- I'm lazy, so the function is generalised for all titlebar positions
+        local box = wibox.widget {
+            {
+                left = left,
+                right = right,
+                top = top,
+                bottom = bottom,
+                widget = wibox.container.margin
+            },
+            bg = col1,
+            widget = wibox.container.background
+        }
+        local cur = box
 
--- n-1 because the first one is one of the n borders
-for i = 1, n-1 do
-local new = wibox.widget {
-{
-left = left,
-right = right,
-top = top,
-bottom = bottom,
-widget = wibox.container.margin
-},
--- toggle between the 2 colors
-bg = (i%2 == 0) and col1 or col2,
-widget = wibox.container.background
-}
-cur.children[1].widget = new
-cur = new
-end
+        -- n-1 because the first one is one of the n borders
+        for i = 1, n-1 do
+            local new = wibox.widget {
+                {
+                    left = left,
+                    right = right,
+                    top = top,
+                    bottom = bottom,
+                    widget = wibox.container.margin
+                },
+                -- toggle between the 2 colors
+                bg = (i%2 == 0) and col1 or col2,
+                widget = wibox.container.background
+            }
+            cur.children[1].widget = new
+            cur = new
+        end
 
-return box
-end
+        return box
+    end
 
-awful.titlebar(c, { position = "left", size = width*n }):setup{
-create_borders(width, 0, 0, 0),
-layout = wibox.layout.flex.horizontal
-}
-awful.titlebar(c, { position = "right", size = width*n }):setup{
-create_borders(0, width, 0, 0),
-layout = wibox.layout.flex.horizontal
-}
-awful.titlebar(c, { position = "top", size = width*n }):setup{
-create_borders(width, width, width, 0),
-layout = wibox.layout.flex.horizontal
-}
-awful.titlebar(c, { position = "bottom", size = width*n }):setup{
-create_borders(width, width, 0, width),
-layout = wibox.layout.flex.horizontal
-}
+    awful.titlebar(c, { position = "left", size = width*n }):setup{
+        create_borders(width, 0, 0, 0),
+        layout = wibox.layout.flex.horizontal
+    }
+    awful.titlebar(c, { position = "right", size = width*n }):setup{
+        create_borders(0, width, 0, 0),
+        layout = wibox.layout.flex.horizontal
+    }
+    awful.titlebar(c, { position = "top", size = width*n }):setup{
+        create_borders(width, width, width, 0),
+        layout = wibox.layout.flex.horizontal
+    }
+    awful.titlebar(c, { position = "bottom", size = width*n }):setup{
+        create_borders(width, width, 0, width),
+        layout = wibox.layout.flex.horizontal
+    }
 
 end)
     </pre>

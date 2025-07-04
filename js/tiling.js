@@ -25,6 +25,9 @@ class Dwm {
                 workspace.appendChild(this.slaves);
             }
             this.slaves.insertBefore(old, this.slaves.firstChild);
+            if (this.slaves.children.length === 15 && addAchievement("chaos")) {
+                tilemsg("Achievement unlocked: Master of organised chaos", "The 37th window was necessary I swear", 6000);
+            }
         }
         this.master.appendChild(div);
     }
@@ -37,7 +40,7 @@ class Dwm {
                     if (this.master.children.length === 0) {
                         // Woah no windows open
                         if (addAchievement("window_close")) {
-                            tilemsg("Achievement unlocked: Soft lock", "Are you stupid? why did close everything??? Reload the page if you want to get the windows back.", 6000);
+                            tilemsg("Achievement unlocked: Soft Lock", "Are you stupid? why did close everything??? Reload the page if you want to get the windows back.", 6000);
                         }
                     }
                 }, 2000);
@@ -76,6 +79,7 @@ export const blankWindow = () => {
 export const spawnWindow = (path, title, float=false, mod= (cont) => cont) => {
     const win = document.createElement("article");
     win.className = "vcentered";
+
     fetch(path)
     .then(res => res.text())
     .then(cont => {
@@ -91,5 +95,20 @@ export const spawnWindow = (path, title, float=false, mod= (cont) => cont) => {
             win.style.height = "400px";
             win.style.zIndex = 2;
         }
+        if (path.includes("blogs") && path !== "../blogs/articles/1.html"){
+            const scroller = win.getElementsByClassName("content")[0];
+            scroller.addEventListener("scroll", event => {
+                const {scrollHeight, scrollTop, clientHeight} = event.target;
+
+                if (Math.abs(scrollHeight - clientHeight - scrollTop) < 1) {
+                    setTimeout(() => {
+                        if (addAchievement("blogread")) {
+                            tilemsg("Achievement Unlocked: \"I Read the Whole Thing\"", "I can't believe you actually read a blog.");
+                        }
+                    }, 2000);
+                }
+            });
+        }
+
     });
 }

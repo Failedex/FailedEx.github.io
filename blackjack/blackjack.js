@@ -180,7 +180,7 @@ function startgame () {
     gambling++;
     if (gambling === 10) {
         if (addAchievement("gambling")) {
-            tilemsg("Achievement unlocked: Gabling addiction", "99% of gamblers quit right before they win big", 6000);
+            tilemsg("Achievement unlocked: Gabling Addiction", "99% of gamblers quit right before they win big", 6000);
         }
     }
 
