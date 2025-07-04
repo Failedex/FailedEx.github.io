@@ -2,6 +2,34 @@ import { makefall } from "./gravity.js";
 import { makefloat, unmakefloat } from "./floatingwindows.js";
 import { spawnWindow } from "./tiling.js";
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+import { existAchievement, addAchievement } from "../achievements/achievements.js";
+
+let count = 0;
+
+export const tilemsg = (head, p, timeout=4000) => {
+    let msg = document.getElementById("popupnotify");
+    if (!msg) {
+        msg = document.createElement("div");
+        msg.id = "popupnotify";
+        msg.className = "popup notifbox gone centered";
+        msg.style.zIndex = 5;
+        document.body.appendChild(msg)
+        // trigger render
+        msg.scrollWidth;
+    }
+    count++;
+    msg.innerHTML = `
+    <h4>${head}</h4>
+    <p>${p}</p>
+    `;
+    msg.className = "popup notifbox centered";
+    setTimeout(() => {
+        count--;
+        if (count <= 0) {
+            msg.className = "popup notifbox gone centered";
+        }
+    }, timeout);
+}
 
 // idea from https://github.com/Stardust-kyun/stardust-kyun.github.io/blob/main/js/main.js
 export class Topbar extends HTMLElement {
@@ -30,6 +58,7 @@ export class Topbar extends HTMLElement {
             "article": ["/blogs/index.html", "Blogs"],
             "experiment": ["/experiments/index.html", "Experiments"],
             "playing_cards": ["/blackjack/index.html", "Blackjack"],
+            "Trophy": ["/achievements/index.html", "Achievements"]
         }
 
         for (var key in topbuttons) {
@@ -52,6 +81,10 @@ export class Topbar extends HTMLElement {
             const menubutton = newbutton.cloneNode(true);
             menubutton.className = "button";
             menu.appendChild(menubutton);
+
+            info.className = "revealonhover"
+            newbutton.onmouseover = () => {info.style.maxWidth = "200px";}
+            newbutton.onmouseout = () => {info.style.maxWidth = "0px";}
         }
         
         const menutoggle = document.createElement("a");
@@ -120,33 +153,6 @@ export class Topbar extends HTMLElement {
         floattext.innerText = "dock_to_left";
         floatwin.appendChild(floattext);
 
-        let count = 0;
-
-        const tilemsg = (head, p) => {
-            let msg = document.getElementById("popupnotify");
-            if (!msg) {
-                msg = document.createElement("div");
-                msg.id = "popupnotify";
-                msg.className = "popup notif gone centered";
-                msg.style.zIndex = 5;
-                document.body.appendChild(msg)
-                // trigger render
-                msg.scrollWidth;
-            }
-            count++;
-            msg.innerHTML = `
-            <h4>${head}</h4>
-            <p>${p}</p>
-            `;
-            msg.className = "popup notif centered";
-            setTimeout(() => {
-                count--;
-                if (count <= 0) {
-                    msg.className = "popup notif gone centered";
-                }
-            }, 4000);
-        }
-
         let ffirst = true;
         let floating = false
         floatwin.onclick = () => {
@@ -199,6 +205,9 @@ export class Topbar extends HTMLElement {
 
         let gravity;
         fallwin.onclick = () => {
+            if (addAchievement("gravity")) {
+                tilemsg("Achievement unlocked: Gravity", "Don't think you slick, Newton found out about this already.", 6000)
+            }
             if (gravity) {
                 clearInterval(gravity);
                 gravity = null;
@@ -318,5 +327,47 @@ export class BlogPost extends HTMLElement {
         <p>${desc}</p>
         `
         this.onclick = () => {spawnWindow(path, title, false, mod ? marked.parse : (cont) => cont)};
+    }
+}
+
+export class Achievement extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback () {
+        this.update();
+        // this.addEventListener("refresh-achieve", (_) => {
+        //     console.log("yooo");
+        //     this.update();
+        // })
+    }
+
+    update() {
+        if (this.childNodes.length > 0) {
+            return;
+        }
+        let title = this.getAttribute("ttile");
+        let name = this.getAttribute("name");
+        let desc = this.getAttribute("desc");
+        let src = this.getAttribute("src");
+
+        const achieved = existAchievement(name);
+
+        if (!achieved) {
+            title = title.replace(/[^ ]/g, '?');
+            desc = desc.replace(/[^ ]/g, '?');
+            name = name.replace(/[^ ]/g, '?');
+            src = "./thumbnails/white-question-mark.svg";
+        }
+
+        this.className = "box-item"
+        this.innerHTML = `
+        <img src="${src}" alt="${title}">
+        <div>
+            <p>${title}</p>
+            <p class="desc">${desc}</p>
+        </div>
+        `
     }
 }

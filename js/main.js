@@ -1,10 +1,11 @@
-import { Topbar, ProjectBox, BlogPost } from "./components.js";
+import { Topbar, ProjectBox, BlogPost, Achievement } from "./components.js";
 import { titlebars } from "./titlebars.js";
 
 // customElements.define("side-bar", Sidebar);
 customElements.define("custom-bar", Topbar);
 customElements.define("project-item", ProjectBox);
 customElements.define("blog-item", BlogPost);
+customElements.define("achievement-item", Achievement);
 titlebars();
 
 // let workspace = document.getElementsByClassName("workspace");

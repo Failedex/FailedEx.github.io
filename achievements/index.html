@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blackjack</title>
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="./style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+        <script src="/js/main.js" type="module"></script>
+    </head>
+    <body>
+        <custom-bar></custom-bar>
+        <div class="workspace">
+            <div id="master-stack">
+                <article class="vcentered" label="Achievements">
+                    <h1>Achievements</h1>
+                    <p>Please find these on desktop for the best experience.</p>
+                    <div class="box-list" id="achievements">
+                        <achievement-item
+                            ttile="Achievements????"
+                            name="achievement"
+                            desc="Visit the achievement page."
+                            src="./thumbnails/youdidit.jpg"
+                        ></achievement-item>
+                        <achievement-item
+                            ttile="Soft lock"
+                            name="window_close"
+                            desc="Close all windows"
+                            src="./thumbnails/despair.png"
+                        ></achievement-item>
+                        <achievement-item
+                            ttile="Gravity"
+                            name="gravity"
+                            desc="Blud thinks they're Newton"
+                            src="./thumbnails/apple.webp"
+                        ></achievement-item>
+                        <achievement-item
+                            ttile="Gambling addiction"
+                            name="gambling"
+                            desc="99% of gamblers quit right before they win big"
+                            src="./thumbnails/gambling.webp"
+                        ></achievement-item>
+                </article>
+            </div>
+        </div>
+        <script type="module">
+        import { addAchievement } from "./achievements.js";
+        import { tilemsg } from "../js/components.js";
+        if (addAchievement("achievement")) {
+            tilemsg("Achievement unlocked: Achievements????", "Why are there achievement????", 6000);
+        }
+        </script>
+    </body>
+</html>

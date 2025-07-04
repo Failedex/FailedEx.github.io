@@ -1,5 +1,9 @@
+import { addAchievement } from "../achievements/achievements.js";
+import { tilemsg } from "../js/components.js";
+
 const suits = ["spade", "heart", "club", "diamond"];
 const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+let gambling = 0;
 
 class BlackJack {
     constructor (hitButton, standButton, dealBoard, playBoard) {
@@ -173,6 +177,13 @@ class BlackJack {
 }
 
 function startgame () {
+    gambling++;
+    if (gambling === 10) {
+        if (addAchievement("gambling")) {
+            tilemsg("Achievement unlocked: Gabling addiction", "99% of gamblers quit right before they win big", 6000);
+        }
+    }
+
     const button = document.getElementById("start");
     const dealBoard = document.getElementById("dealer");
     const playBoard = document.getElementById("player");

@@ -1,5 +1,7 @@
 import { makefloat } from "./floatingwindows.js";
 import { createTitleBar } from "./titlebars.js";
+import { tilemsg } from "./components.js";
+import { addAchievement } from "../achievements/achievements.js";
 
 class Dwm {
     constructor() {
@@ -31,6 +33,13 @@ class Dwm {
         div.remove();
         if (this.master.children.length === 0) {
             if (!this.slaves || this.slaves.children.length === 0) {
+                setTimeout(() => {
+                    if (this.master.children.length === 0) {
+                        // Woah no windows open
+                        tilemsg("Achievement unlocked: Soft lock", "Are you stupid? why did close everything??? Reload the page if you want to get the windows back.", 6000);
+                        addAchievement("window_close");
+                    }
+                }, 2000);
                 return
             }
             const old = this.slaves.children[0];

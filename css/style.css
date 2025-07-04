@@ -80,6 +80,13 @@ pre {
     color: var(--bg2)
 }
 
+.revealonhover {
+    transition: 500ms;
+    margin: 3px 0px;
+    overflow: hidden;
+    max-width: 0px;
+}
+
 .menushow {
     position: relative;
     display: block;
@@ -245,7 +252,7 @@ article {
     position: fixed;
     right: 10px;
     bottom: 10px;
-    width: min(300px, 50%);
+    width: min(350px, 50%);
 
     transition: right 500ms;
 
@@ -263,7 +270,7 @@ article {
 }
 
 /* override popup property for notifications */
-.notif {
+.notifbox {
     top: 60px;
     right: 10px;
     bottom: unset;
@@ -271,7 +278,7 @@ article {
     transition: top 500ms;
 }
 
-.notif.gone {
+.notifbox.gone {
     top: -300px;
     right: 10px;
     bottom: unset;

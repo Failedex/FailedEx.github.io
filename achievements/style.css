@@ -1,0 +1,49 @@
+
+.box-list {
+    display: flex;
+
+    justify-content: center;
+    flex-wrap: wrap;
+    .box-item {
+        transition: 500ms;
+        position: relative;
+        margin: 10px;
+        padding: 10px;
+
+        /* annoying ass phone users */
+        width: min(400px, 90%);
+        /* height: 400px; */
+        /* overflow-y: scroll; */
+
+        text-wrap: wrap;
+
+        border-radius: 5px;
+        background-color: var(--bg2);
+
+        display: flex;
+        img {
+            height: 80px;
+            aspect-ratio: 1 / 1;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        div {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            p {
+                font-size: 18px;
+                margin: 10px;
+                text-wrap: balance;
+                text-align: center;
+            }
+            .desc {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+
