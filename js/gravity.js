@@ -39,7 +39,7 @@ export function makefall (div, oldpos) {
         checkheight = false;
         if (addAchievement("flyhigh")) {
             dwm.remove(div);
-            tilemsg("Ascended Beyond Tiling", "That window is God's problem now.");
+            tilemsg("Achievement unlocked: Ascended Beyond Tiling", "That window is God's problem now.");
             return null;
         }
     }

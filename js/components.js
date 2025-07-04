@@ -120,7 +120,7 @@ export class Topbar extends HTMLElement {
         skull.title = "This website boring ahh hell";
         skull.onclick = () => {
             if (addAchievement("brainrot")) {
-                tilemsg("Achievement unlocked: Brainrot", "My attention span is way too low for this.");
+                tilemsg("Achievement unlocked: Brainrot", "My attention span is way too low for this.", 6000);
             }
             let attentionspan = document.getElementById("popupclip");
             if (!attentionspan) {

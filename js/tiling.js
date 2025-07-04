@@ -103,7 +103,7 @@ export const spawnWindow = (path, title, float=false, mod= (cont) => cont) => {
                 if (Math.abs(scrollHeight - clientHeight - scrollTop) < 1) {
                     setTimeout(() => {
                         if (addAchievement("blogread")) {
-                            tilemsg("Achievement Unlocked: \"I Read the Whole Thing\"", "I can't believe you actually read a blog.");
+                            tilemsg("Achievement Unlocked: \"I Read the Whole Thing\"", "I can't believe you actually read a blog.", 6000);
                         }
                     }, 2000);
                 }
