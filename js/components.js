@@ -94,7 +94,7 @@ export class Topbar extends HTMLElement {
         const menutoggle = document.createElement("a");
         menutoggle.className = "button smallbutton";
         menutoggle.innerHTML = `<i class="material-symbols-outlined">Menu</i>`;
-        let menuheight = 195;
+        let menuheight = 225;
         menu.out = false;
         menutoggle.onclick = () => {
             if (!menu.out) {
@@ -152,7 +152,8 @@ export class Topbar extends HTMLElement {
         skull.appendChild(skulltext);
 
         const floatwin = document.createElement("button");
-        floatwin.className = "button largebutton";
+        // floatwin.className = "button largebutton";
+        floatwin.className = "button";
         floatwin.title = "Tiling mode";
 
         const floattext = document.createElement("i");

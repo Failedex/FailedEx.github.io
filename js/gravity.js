@@ -35,7 +35,7 @@ export function makefall (div, oldpos) {
         }
     }
 
-    if (checkheight && pos.top < -2000) {
+    if (checkheight && pos.top < -1000) {
         checkheight = false;
         if (addAchievement("flyhigh")) {
             dwm.remove(div);
