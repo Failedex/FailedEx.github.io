@@ -36,8 +36,9 @@ class Dwm {
                 setTimeout(() => {
                     if (this.master.children.length === 0) {
                         // Woah no windows open
-                        tilemsg("Achievement unlocked: Soft lock", "Are you stupid? why did close everything??? Reload the page if you want to get the windows back.", 6000);
-                        addAchievement("window_close");
+                        if (addAchievement("window_close")) {
+                            tilemsg("Achievement unlocked: Soft lock", "Are you stupid? why did close everything??? Reload the page if you want to get the windows back.", 6000);
+                        }
                     }
                 }, 2000);
                 return

@@ -7,28 +7,34 @@ import { existAchievement, addAchievement } from "../achievements/achievements.j
 let count = 0;
 
 export const tilemsg = (head, p, timeout=4000) => {
-    let msg = document.getElementById("popupnotify");
-    if (!msg) {
-        msg = document.createElement("div");
-        msg.id = "popupnotify";
-        msg.className = "popup notifbox gone centered";
-        msg.style.zIndex = 5;
-        document.body.appendChild(msg)
-        // trigger render
-        msg.scrollWidth;
+    let cont = document.getElementById("popupnotify");
+    if (!cont) {
+        cont = document.createElement("div");
+        cont.id = "popupnotify";
+        cont.style.zIndex = 999;
+        document.body.appendChild(cont);
     }
-    count++;
+    let msg = document.createElement("div");
+    msg.className = "popup notifbox gone";
+    msg.scrollWidth;
     msg.innerHTML = `
-    <h4>${head}</h4>
+    <div style="display: flex; align-item: center;">
+        <h3 style="flex-basis: 0; flex-grow: 1; margin: 5px;">${head}</h3>
+        <i class="material-symbols-outlined">Close</i>
+    </div>
     <p>${p}</p>
     `;
-    msg.className = "popup notifbox centered";
-    setTimeout(() => {
-        count--;
-        if (count <= 0) {
-            msg.className = "popup notifbox gone centered";
-        }
-    }, timeout);
+    cont.appendChild(msg);
+    msg.className = "popup notifbox";
+    const close = () => {
+        msg.className = "popup notifbox gone";
+        setTimeout(() => {
+            msg.remove();
+        }, 600);
+    }
+    const clsbtn = msg.getElementsByTagName("i")[0];
+    clsbtn.onclick = close;
+    setTimeout(close, timeout);
 }
 
 // idea from https://github.com/Stardust-kyun/stardust-kyun.github.io/blob/main/js/main.js

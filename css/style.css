@@ -269,19 +269,20 @@ article {
     right: -400px;
 }
 
-/* override popup property for notifications */
-.notifbox {
+#popupnotify {
+    position: fixed;
     top: 60px;
     right: 10px;
-    bottom: unset;
-
-    transition: top 500ms;
+    width: min(350px, 100%);
 }
 
-.notifbox.gone {
-    top: -300px;
-    right: 10px;
-    bottom: unset;
+/* override popup property for notifications */
+.notifbox {
+    position: relative;
+    width: calc(100% - 20px);
+    i:hover {
+        cursor: pointer;
+    }
 }
 
 .titlebar {
@@ -309,4 +310,7 @@ article {
     height: 17px;
     margin: 1px 3px;
     border-radius: 50%;
+}
+.actionbutton:hover {
+    cursor: pointer;
 }
