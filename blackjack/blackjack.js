@@ -95,7 +95,6 @@ class BlackJack {
             }
             possible = add;
         }
-        console.log(possible);
         let minimum = Math.min(...possible);
         possible = possible.filter(e => e <= 21);
 
@@ -108,6 +107,11 @@ class BlackJack {
 
     hit() {
         const newCard = this.randomCard()
+        if (this.handValue(this.player) == 21) {
+            if (addAchievement("suboptimal")) {
+                tilemsg("Achievement unlocked: Suboptimal Play", "Bro you already had 21 what are you doing 😭😭😭")
+            }
+        }
         this.player.push(newCard);
         this.playBoard.appendChild(this.displayCard(newCard))
         if (this.handValue(this.player) > 21) {
@@ -207,6 +211,8 @@ function startgame () {
         } 
         if (game.player.length === 5) {
             result.innerText = "You win";
+            hit.disabled = true;
+            stand.disabled = true;
             button.disabled = false;
         }
     };
