@@ -18,8 +18,7 @@
                     <div class="thin" style="text-align: center;">
                         <h1>About</h1>
                         <p>I'm Failed, a computer science and math major. I like programming and Linux.</p>
-                        <p>This website was aimed less towards professionalism and more towards fun. If you're wondering why this website looks unconventional and abnormal, it's because the layout of this website resembles a desktop environment. For the best experience, please view this on your desktop.</p>
-                        <p>Additional tip: Full screen the website with F11.</p>
+                        <p>This website was aimed less towards professionalism and more towards fun. If you're wondering why this website looks unconventional and abnormal, it's because the layout of this website resembles a desktop environment. Please refer to the <a id="promote-manual">Manual</a> for further information.</p>
                         <p>As time goes on, I plan to add dumb and silly things to this website (no spoilers) as well as some normal things like a blog or project showcases.</p>
                         <p>Enjoy your stay!</p>
                     </div>
@@ -34,28 +33,48 @@
                         <li>Github: <a href="https://github.com/Failedex" draggable="false">FailedExperiment</a></li>
                     </ul>
                 </article>
-                <article class="centered" label="Navigation">
-                    <div id="navwindow">
-                        <a href="/" class="button naventry current">
-                            <i class="material-symbols-outlined">home</i>
-                            <p>Home</p>
-                        </a>
-                        <a href="/blogs/index.html" class="button naventry">
-                            <i class="material-symbols-outlined">article</i>
-                            <p>Blogs</p>
-                        </a>
-                        <a href="/experiments/index.html" class="button naventry">
-                            <i class="material-symbols-outlined">experiment</i>
-                            <p>Experiments</p>
-                        </a>
-                        <a href="/blackjack/index.html" class="button naventry">
-                            <i class="material-symbols-outlined">playing_cards</i>
-                            <p>Blackjack</p>
-                        </a>
-                    </div>
-                </article>
+                <!-- <article class="centered" label="Navigation"> -->
+                <!--     <div id="navwindow"> -->
+                <!--         <a href="/" class="button naventry current"> -->
+                <!--             <i class="material-symbols-outlined">home</i> -->
+                <!--             <p>Home</p> -->
+                <!--         </a> -->
+                <!--         <a href="/blogs/index.html" class="button naventry"> -->
+                <!--             <i class="material-symbols-outlined">article</i> -->
+                <!--             <p>Blogs</p> -->
+                <!--         </a> -->
+                <!--         <a href="/experiments/index.html" class="button naventry"> -->
+                <!--             <i class="material-symbols-outlined">experiment</i> -->
+                <!--             <p>Experiments</p> -->
+                <!--         </a> -->
+                <!--         <a href="/blackjack/index.html" class="button naventry"> -->
+                <!--             <i class="material-symbols-outlined">playing_cards</i> -->
+                <!--             <p>Blackjack</p> -->
+                <!--         </a> -->
+                <!--     </div> -->
+                <!-- </article> -->
             </div>
         </div>
 
+        <script type="module">
+        import { createTitleBar } from "./js/titlebars.js";
+        import { dwm } from "./js/tiling.js";
+
+        const win = document.createElement("article");
+        win.className = "vcentered";
+        fetch("./windows/Manual.html")
+        .then(res => res.text())
+        .then(cont => {
+            // dwm.promote(document.getElementById("slave-stack").children[0]);
+            win.innerHTML = cont;
+            win.setAttribute("label", "Manual");
+            createTitleBar(win);
+            document.getElementById("slave-stack").appendChild(win);
+        });
+        const promote = document.getElementById("promote-manual");
+        promote.onclick = () => {
+            dwm.promote(win);
+        }
+        </script>
     </body>
 </html>
