@@ -91,7 +91,7 @@ export const spawnWindow = (path, title, float=false, mod= (cont) => cont) => {
     fetch(path)
     .then(res => res.text())
     .then(cont => {
-        win.innerHTML = mod(cont);
+        win.innerHTML = `<div class="thin">${mod(cont)}</div>`;
         win.setAttribute("label", title);
         createTitleBar(win);
         dwm.add(win);

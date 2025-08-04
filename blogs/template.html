@@ -9,21 +9,26 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
         <script src="/js/main.js" type="module"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>    </head>
     </head>
     <body>
         <custom-bar></custom-bar>
         <div class="workspace">
             <div>
                 <article class="vcentered">
-                <div class="thin">
-                    <h1>Title</h1>
-                    <h3>date</h3>
-                    <hr>
-
-                    <p></p>
+                <div class="thin" id="blogcontent">
                 </div>
                 </article>
             </div>
         </div>
+
+        <script>
+        fetch('./articles/7/7.md').then(res => res.text()).then(md => {
+            document.getElementById('blogcontent').innerHTML = marked.parse(md);
+        }).catch(err => {
+            document.getElementById('blogcontent').textContent = '"Failed" to load blog post.';
+            console.error(err);
+        })
+        </script>
     </body>
 </html>

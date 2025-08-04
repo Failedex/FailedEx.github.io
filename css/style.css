@@ -28,11 +28,15 @@ body {
     overflow: hidden;
 }
 
-h1 {
-    font-size: 30px;
+h1, h2, h3 {
+    /* text-align: center; */
+    margin: 30px 0px;
+    border-bottom: 1px solid var(--bg3)
 }
 
-h1, h2, h3 {
+h1 {
+    font-size: 30px;
+    border-bottom: none;
     text-align: center;
 }
 
@@ -42,14 +46,15 @@ p, li {
 }
 
 code {
-    background-color: var(--bg3);
+    background-color: var(--bg2);
+    border-radius: 5px;
 }
 
 pre {
     overflow-x: auto;
-    background-color: var(--bg3);
+    background-color: var(--bg2);
     padding: 20px;
-    margin: 20px;
+    /* margin: 20px; */
     border-radius: 10px;
     border-color: var(--bg2);
 }
